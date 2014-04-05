@@ -37,6 +37,12 @@
             android:label="@string/app_name" >
             
         </activity>
+        <activity
+           android:name="com.cs9033.katalogkiller.ForgetPasswordActivity"
+            android:label="@string/app_name" >
+            
+            
+        </activity>
         
     </application>
 

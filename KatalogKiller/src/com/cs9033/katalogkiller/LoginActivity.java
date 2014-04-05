@@ -2,6 +2,7 @@ package com.cs9033.katalogkiller;
 
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 public class LoginActivity extends Activity {
 	
 	private static String TAG = "LoginActivity";
+	private String trackUsername;
 
 
 	 private EditText  username=null;
@@ -59,14 +61,20 @@ public class LoginActivity extends Activity {
 	      Toast.makeText(getApplicationContext(), "Redirecting...", 
 	      Toast.LENGTH_SHORT).show();
 	      
+	      Intent homePageIntent = new Intent(this, HomeActivity.class);
+	      homePageIntent.putExtra(trackUsername, "Username");
+	      startActivity(homePageIntent);
+	      
+	      
 	   }	
 	   else{
 	      Toast.makeText(getApplicationContext(), "Wrong Credentials",
 	      Toast.LENGTH_SHORT).show();
+	   }
+	  }
 	     
 
-	   }
-}
+	   
 
 	
 	
