@@ -6,11 +6,12 @@ import android.view.Menu;
 
 public class SplashActivity extends Activity {
 	
+	private static String TAG = "SplashActivity";
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
-		System.out.print("Master File");
+		setContentView(R.layout.splash);
 	}
 	
 	@Override
