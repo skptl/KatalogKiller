@@ -1,17 +1,17 @@
-package com.example.katalogkiller;
+package com.cs9033.katalogkiller;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 
-public class HomeActivity extends Activity {
+public class LeaderBoardActivity extends Activity {
 	
-	private static String TAG = "HomeActivity";
+	private static String TAG = "LeaderBoardActivity";
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.home);
+		setContentView(R.layout.leader_board);
 	}
 	
 	@Override

@@ -1,4 +1,4 @@
-package com.example.katalogkiller;
+package com.cs9033.katalogkiller;
 
 import android.app.Activity;
 import android.os.Bundle;
