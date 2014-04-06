@@ -8,8 +8,7 @@
    <string name="username">Email Id </string>
    <string name="password">Password </string>
    <string name="Login">Login</string>
-   <string name="Forget_Password">Forget Password:</string>
-   <string name="Clickhere">Click Here </string>
+   <string name="Clickhere"> Forget Password ?</string>
    <string name="emailid">Enter Registered Email id</string>
    <string name="typeemailid">abc@katalogkiller.com</string>
    <string name="reenteremail"> Re-enter Email id</string>
@@ -18,6 +17,8 @@
    <string name="Name"> Name </string>
    <string name="Register"> Register </string>
    <string name="alreadyamember"> Already a member </string>
+   <string name="signup"> Sign Up</string>
+   
    
    <!-- changes by Shilpan -->
    <string name="camera_text">Scan Catalog</string>

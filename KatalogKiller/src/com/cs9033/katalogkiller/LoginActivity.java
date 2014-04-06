@@ -21,6 +21,7 @@ public class LoginActivity extends Activity {
     private EditText  password=null;
     private TextView forgetpassword;
     private Button login;
+    private Button btnregister;
     
     
     
@@ -39,12 +40,23 @@ public class LoginActivity extends Activity {
 	        username = (EditText)findViewById(R.id.editText1);
 	        password = (EditText)findViewById(R.id.editText2);
 	        forgetpassword = (TextView)findViewById(R.id.textView5);
-	        login = (Button)findViewById(R.id.facebook_button); 
+	        login = (Button)findViewById(R.id.fbloginbutton); 
+	        btnregister = (Button)findViewById(R.id.btnregister);
+
 	        forgetpassword.setClickable(true);
 	        
 	        forgetpassword.setOnClickListener(new View.OnClickListener(){
 	            public void onClick(View v){
 	            	Intent forgetpasswordIn = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
+	      	      startActivity(forgetpasswordIn);
+	      	      
+	            }
+	        });
+	        
+	        
+	        btnregister.setOnClickListener(new View.OnClickListener(){
+	            public void onClick(View v){
+	            	Intent forgetpasswordIn = new Intent(LoginActivity.this, RegisterActivity.class);
 	      	      startActivity(forgetpasswordIn);
 	      	      
 	            }
