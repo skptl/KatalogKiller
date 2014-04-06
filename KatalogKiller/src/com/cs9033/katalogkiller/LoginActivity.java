@@ -39,7 +39,7 @@ public class LoginActivity extends Activity {
 	        username = (EditText)findViewById(R.id.editText1);
 	        password = (EditText)findViewById(R.id.editText2);
 	        forgetpassword = (TextView)findViewById(R.id.textView5);
-	        login = (Button)findViewById(R.id.button1); 
+	        login = (Button)findViewById(R.id.facebook_button); 
 	        forgetpassword.setClickable(true);
 	        
 	        forgetpassword.setOnClickListener(new View.OnClickListener(){
