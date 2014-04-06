@@ -13,5 +13,11 @@
    <string name="typeemailid">abc@katalogkiller.com</string>
    <string name="reenteremail"> Re-enter Email id</string>
    <string name="submit"> Submit </string>
+   
+   <!-- changes by Shilpan -->
+   <string name="camera_text">Scan Catalog</string>
+   <string name="unsubscription_history">Catalogs</string>
+   <string name="faqs">FAQ (Using App)</string>
+   <string name="leader_board">LeaderBoard (Go Green)</string>
 
 </resources>
