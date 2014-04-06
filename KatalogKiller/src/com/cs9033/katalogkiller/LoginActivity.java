@@ -56,8 +56,8 @@ public class LoginActivity extends Activity {
 	        
 	        btnregister.setOnClickListener(new View.OnClickListener(){
 	            public void onClick(View v){
-	            	Intent forgetpasswordIn = new Intent(LoginActivity.this, RegisterActivity.class);
-	      	      startActivity(forgetpasswordIn);
+	            	Intent registerIn = new Intent(LoginActivity.this, RegisterActivity.class);
+	      	      startActivity(registerIn);
 	      	      
 	            }
 	        });
