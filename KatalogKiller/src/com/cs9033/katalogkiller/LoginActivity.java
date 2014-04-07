@@ -30,7 +30,6 @@ public class LoginActivity extends Activity {
     private TextView forgetpassword;
     private Button login;
     private Button btnregister;
-    private Button fblogin;
     
     Facebook fb=new Facebook(APP_ID);
     SharedPreferences pref;
@@ -65,9 +64,7 @@ public class LoginActivity extends Activity {
 	        username = (EditText)findViewById(R.id.editText1);
 	        password = (EditText)findViewById(R.id.editText2);
 	        forgetpassword = (TextView)findViewById(R.id.textView5);
-	        login = (Button)findViewById(R.id.fbloginbutton); 
 	        btnregister = (Button)findViewById(R.id.btnregister);
-	        fblogin=(Button)findViewById(R.id.fbloginbutton);
 
 	        forgetpassword.setClickable(true);
 	        
@@ -129,7 +126,8 @@ public class LoginActivity extends Activity {
 						edit.putLong("USER_EXPIRE",fb.getAccessExpires());
 						edit.commit();
 						Toast.makeText(LoginActivity.this,"USER Logged In:  ",Toast.LENGTH_SHORT).show();
-						
+						Intent i=new Intent(LoginActivity.this,LeaderBoardActivity.class);
+						startActivity(i);
 						//Do Something with User Data
 					}
 
