@@ -96,30 +96,28 @@
             android:paddingTop="20dp"
             android:text="@string/Clickhere" />
     </RelativeLayout>
-    
-    <RelativeLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        >
- <Button
-        android:id="@+id/btnregister"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-             android:layout_marginRight="60dp"
-             android:layout_marginLeft="40dp"
-        android:text="@string/signup" />
 
- <Button
-     android:id="@+id/imageButton1"
-     android:layout_width="wrap_content"
-     android:layout_height="wrap_content"
-     android:layout_alignParentRight="true"
-     android:layout_marginRight="32dp"
-     android:background="@drawable/fbsignin"
-     android:onClick="fbLogin" />
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp" >
+
+        <Button
+            android:id="@+id/btnregister"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="60dp"
+            android:text="@string/signup" />
+
+        <com.facebook.widget.LoginButton
+            android:id="@+id/authButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:onClick="fbLogin" />
 
     </RelativeLayout>
-
-  
    
 </LinearLayout>

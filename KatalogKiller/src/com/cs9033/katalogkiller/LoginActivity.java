@@ -35,12 +35,13 @@ public class LoginActivity extends Activity {
 	private String trackUsername;
 
 
-	 private EditText  username=null;
+	private EditText  username=null;
     private EditText  password=null;
     private TextView forgetpassword;
     private Button login;
     private Button btnregister;
     
+    private Button facebooklogin;
     private Facebook facebook;
     private AsyncFacebookRunner mAsyncRunner;
     String FILENAME = "AndroidSSO_data";
@@ -69,6 +70,7 @@ public class LoginActivity extends Activity {
 	        password = (EditText)findViewById(R.id.editText2);
 	        forgetpassword = (TextView)findViewById(R.id.textView5);
 	        btnregister = (Button)findViewById(R.id.btnregister);
+	        facebooklogin=(Button)findViewById(R.id.authButton);
 
 	        forgetpassword.setClickable(true);
 	        
@@ -77,6 +79,13 @@ public class LoginActivity extends Activity {
 	            	Intent forgetpasswordIn = new Intent(LoginActivity.this, ForgetPasswordActivity.class);
 	      	      startActivity(forgetpasswordIn);
 	      	      
+	            }
+	        });
+	        
+	        facebooklogin.setOnClickListener(new View.OnClickListener() {
+	            @Override
+	            public void onClick(View v) {
+	                fbLogin();
 	            }
 	        });
 	        
@@ -115,7 +124,8 @@ public class LoginActivity extends Activity {
 	  }
 	     
 	  @SuppressWarnings("deprecation")
-	  public void fbLogin(View v) {
+	  public void fbLogin() {
+		  	Log.d(TAG, "fbLogin");
 		    mPrefs = getPreferences(MODE_PRIVATE);
 		    String access_token = mPrefs.getString("access_token", null);
 		    long expires = mPrefs.getLong("access_expires", 0);
@@ -188,7 +198,8 @@ public class LoginActivity extends Activity {
 		            try {
 		                JSONObject profile = new JSONObject(json);
 		                // getting name of the user
-		                final String name = profile.getString("name");
+		                final String firstname = profile.getString("first_name");
+		                final String lastname = profile.getString("last_name");
 		                // getting email of the user
 		                final String email = profile.getString("email");
 		 
@@ -196,7 +207,7 @@ public class LoginActivity extends Activity {
 		 
 		                    @Override
 		                    public void run() {
-		                        Toast.makeText(getApplicationContext(), "Name: " + name + "\nEmail: " + email, Toast.LENGTH_LONG).show();
+		                        Toast.makeText(getApplicationContext(), "Name: " + firstname+"   "+lastname + "\nEmail: " + email, Toast.LENGTH_LONG).show();
 		                    }
 		 
 		                });
