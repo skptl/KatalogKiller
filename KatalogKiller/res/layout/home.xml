@@ -84,7 +84,7 @@
             android:layout_margin="10dp" >
 
             <Button
-                android:id="@+id/button1"
+                android:id="@+id/captureButton"
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -98,7 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toLeftOf="@+id/button1"
+                android:layout_toLeftOf="@+id/captureButton"
                 android:background="@drawable/twitter" />
 
             <Button
@@ -107,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentTop="true"
-                android:layout_toRightOf="@+id/button1"
+                android:layout_toRightOf="@+id/captureButton"
                 android:background="@drawable/googleplus" />
         </RelativeLayout>
     </LinearLayout>

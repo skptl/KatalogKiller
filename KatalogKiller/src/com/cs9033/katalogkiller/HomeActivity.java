@@ -1,6 +1,7 @@
 package com.cs9033.katalogkiller;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -15,6 +16,8 @@ public class HomeActivity extends Activity {
 	private Button catalogButton;
 	private Button faqButton;
 	private Button leadeBoardButton;
+	
+	private static final int SCANNER_ACTIVITY = 1111; 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,8 +43,8 @@ public class HomeActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
-
+				Intent scannerActivity = new Intent(HomeActivity.this, ScannerActivity.class);
+	      	    startActivityForResult(scannerActivity, SCANNER_ACTIVITY);
 			}
 		});
 

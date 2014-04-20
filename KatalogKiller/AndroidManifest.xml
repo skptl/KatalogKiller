@@ -7,11 +7,11 @@
     <uses-sdk
         android:minSdkVersion="8"
         android:targetSdkVersion="19" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.CAMERA"/>
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.CAMERA" />
     <uses-feature android:name="android.hardware.camera" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -27,34 +27,30 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-          <activity
+        <activity
             android:name="com.cs9033.katalogkiller.SplashActivity"
             android:label="@string/app_name" >
-            
         </activity>
         <activity
             android:name="com.cs9033.katalogkiller.HomeActivity"
             android:label="@string/app_name" >
-            
         </activity>
         <activity
             android:name="com.cs9033.katalogkiller.LeaderBoardActivity"
             android:label="@string/app_name" >
-            
         </activity>
         <activity
-           android:name="com.cs9033.katalogkiller.ForgetPasswordActivity"
+            android:name="com.cs9033.katalogkiller.ForgetPasswordActivity"
             android:label="@string/app_name" >
-            
-            
         </activity>
-          <activity
-           android:name="com.cs9033.katalogkiller.RegisterActivity"
+        <activity
+            android:name="com.cs9033.katalogkiller.RegisterActivity"
             android:label="@string/app_name" >
-            
-            
         </activity>
-        
+        <activity
+            android:name="com.cs9033.katalogkiller.ScannerActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

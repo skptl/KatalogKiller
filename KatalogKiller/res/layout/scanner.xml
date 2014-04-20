@@ -4,12 +4,12 @@
     android:layout_height="match_parent" >
 
     <org.opencv.android.JavaCameraView
-        android:id="@+id/camera_surface_view"
+        android:id="@+id/cameraSurfaceView"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent" />
 
     <Button
-        android:id="@+id/button1"
+        android:id="@+id/captureButton"
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

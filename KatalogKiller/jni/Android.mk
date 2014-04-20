@@ -16,6 +16,7 @@ LOCAL_LDLIBS    += -llog
 LOCAL_SRC_FILES := cuda/surf.cu \
 opencl/surf.cl \
 nonfree_init.cpp \
+precomp.hpp \
 sift.cpp \
 surf_gpu.cpp \
 surf.cpp \
