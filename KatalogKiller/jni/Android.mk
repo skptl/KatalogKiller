@@ -8,7 +8,7 @@ OPENCV_CAMERA_MODULES:=off
 include $(OPENCV_PACKAGE_DIR)/sdk/native/jni/OpenCV.mk
 
 LOCAL_C_INCLUDES += $(OPENCV_PACKAGE_DIR)/sdk/native/jni/include
-LOCAL_MODULE    := nonfree
+LOCAL_MODULE    := opencv_feature
 LOCAL_CFLAGS    := -Werror -O3 -ffast-math
 LOCAL_LDLIBS    += -llog
 

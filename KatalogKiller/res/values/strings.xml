@@ -25,5 +25,6 @@
    <string name="unsubscription_history">Catalogs</string>
    <string name="faqs">FAQ (Using App)</string>
    <string name="leader_board">LeaderBoard (Go Green)</string>
+   <string name="capture">Capture</string>
 
 </resources>
