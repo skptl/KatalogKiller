@@ -8,7 +8,13 @@ public class Utilities {
 
 	static boolean debug = true;
 
-	/** Check if this device has a camera */
+	/**
+	 * Check if this device has a camera
+	 * 
+	 * @param context
+	 *            Context of the application
+	 * @return Status of camera hardware
+	 */
 	public static boolean checkCameraHardware(Context context) {
 		if (context.getPackageManager().hasSystemFeature(
 				PackageManager.FEATURE_CAMERA)) {
@@ -20,6 +26,34 @@ public class Utilities {
 		}
 	}
 
+	/**
+	 * Check for network status
+	 * 
+	 * @param context
+	 *            Context of the application
+	 * @return Status of network
+	 */
+	public static boolean isNetworkActive(Context context) {
+		if (context.getPackageManager().hasSystemFeature(
+				PackageManager.FEATURE_CAMERA)) {
+
+			return true;
+		} else {
+			// no camera on this device
+			return false;
+		}
+	}
+
+	/**
+	 * One stop logging for application
+	 * 
+	 * @param tag
+	 *            Tag of the message to be logged
+	 * @param message
+	 *            Message to be logged
+	 * @param level
+	 *            Severity of logging
+	 */
 	public static void log(String tag, String message, int level) {
 		if (debug) {
 			switch (level) {
@@ -41,6 +75,8 @@ public class Utilities {
 			case Log.WARN:
 				Log.w(tag, message);
 				break;
+			default:
+				Log.i(tag, message);
 			}
 		}
 	}
