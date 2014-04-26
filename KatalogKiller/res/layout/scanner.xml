@@ -2,12 +2,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="horizontal" >
 
     <org.opencv.android.JavaCameraView
-        android:layout_width="fill_parent"
+        android:id="@+id/cameraSurfaceView"
+        android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:id="@+id/cameraSurfaceView" />
+        android:layout_weight="0.90" />
+
+    <Button
+        android:id="@id/captureButton"
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_margin="5dp"
+        android:layout_weight="0.10"
+        android:background="@drawable/camera_icon" />
 
 </LinearLayout>
-

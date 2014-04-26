@@ -46,6 +46,6 @@ JNIEXPORT void JNICALL Java_com_cs9033_katalogkiller_ScannerActivity_findFeature
         circle(mRgb, Point(kp.pt.x, kp.pt.y), 10, keypointColor);
     }*/
 	Scalar keypointColor = Scalar(255, 0, 0);
-	drawKeypoints(mGr, keypoints, mRgb, keypointColor, DrawMatchesFlags::DRAW_OVER_OUTIMG);
+	drawKeypoints(mGr, keypoints, mRgb, keypointColor, DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
 }
 

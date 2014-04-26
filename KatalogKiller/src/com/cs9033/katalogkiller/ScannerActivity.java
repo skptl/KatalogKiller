@@ -12,7 +12,10 @@ import org.opencv.core.Mat;
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.WindowManager;
+import android.widget.Button;
 
 public class ScannerActivity extends Activity implements CvCameraViewListener2 {
 
@@ -23,7 +26,7 @@ public class ScannerActivity extends Activity implements CvCameraViewListener2 {
 	private Mat mGray;
 
 	private CameraBridgeViewBase mOpenCvCameraView;
-	//private Button captureButton;
+	private Button captureButton;
 
 	private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
 		@Override
@@ -67,15 +70,15 @@ public class ScannerActivity extends Activity implements CvCameraViewListener2 {
 		mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.cameraSurfaceView);
 		mOpenCvCameraView.setCvCameraViewListener(this);
 		
-		/*captureButton = (Button) findViewById(R.id.captureButton);
+		captureButton = (Button) findViewById(R.id.captureButton);
 		captureButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View v) {
-				// TODO Auto-generated method stub
+				findFeatures(mGray.getNativeObjAddr(), mRgba.getNativeObjAddr());
 				
 			}
-		});*/
+		});
 	}
 	
     @Override
@@ -115,7 +118,6 @@ public class ScannerActivity extends Activity implements CvCameraViewListener2 {
 	public Mat onCameraFrame(CvCameraViewFrame inputFrame) {
 		mRgba = inputFrame.rgba();
         mGray = inputFrame.gray();
-        findFeatures(mGray.getNativeObjAddr(), mRgba.getNativeObjAddr());
 		return mRgba;
 	}
 	
