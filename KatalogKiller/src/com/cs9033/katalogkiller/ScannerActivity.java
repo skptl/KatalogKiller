@@ -9,6 +9,8 @@ import org.opencv.android.OpenCVLoader;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
+import com.cs9033.katalogkiller.utilities.Utilities;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,6 +26,8 @@ public class ScannerActivity extends Activity implements CvCameraViewListener2 {
 	private Mat mRgba;
 	private Mat mIntermediateMat;
 	private Mat mGray;
+	private Mat siftDescriptors;
+	private Mat surfDescriptors;
 
 	private CameraBridgeViewBase mOpenCvCameraView;
 	private Button captureButton;
@@ -75,7 +79,11 @@ public class ScannerActivity extends Activity implements CvCameraViewListener2 {
 			
 			@Override
 			public void onClick(View v) {
-				findFeatures(mGray.getNativeObjAddr(), mRgba.getNativeObjAddr());
+				findFeatures(mGray.getNativeObjAddr(), mRgba.getNativeObjAddr(), siftDescriptors.getNativeObjAddr(), surfDescriptors.getNativeObjAddr());
+				Utilities.log(TAG, siftDescriptors.dump(), -1);
+				Utilities.log(TAG, surfDescriptors.dump(), -1);
+				if (mOpenCvCameraView != null)
+		            mOpenCvCameraView.disableView();
 				
 			}
 		});
@@ -106,12 +114,17 @@ public class ScannerActivity extends Activity implements CvCameraViewListener2 {
         mRgba = new Mat(height, width, CvType.CV_8UC4);
         mIntermediateMat = new Mat(height, width, CvType.CV_8UC4);
         mGray = new Mat(height, width, CvType.CV_8UC1);
+        siftDescriptors = new Mat();
+        surfDescriptors = new Mat();
     }
 
     public void onCameraViewStopped() {
         mRgba.release();
         mGray.release();
         mIntermediateMat.release();
+        siftDescriptors.release();
+        surfDescriptors.release();
+        Utilities.log(TAG, "Memory released!!", -1);
     }
 
 	@Override
@@ -121,7 +134,7 @@ public class ScannerActivity extends Activity implements CvCameraViewListener2 {
 		return mRgba;
 	}
 	
-	public native void findFeatures(long matAddrGr, long matAddrRgba);
+	public native void findFeatures(long matAddrGr, long matAddrRgba, long matAddrSiftDescriptor, long matAddrSurfDescriptor);
 	
 
 }

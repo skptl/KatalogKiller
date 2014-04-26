@@ -18,34 +18,43 @@ using namespace cv;
 #define  LOGI(...)  __android_log_print(ANDROID_LOG_INFO,LOG_TAG,__VA_ARGS__)
 
 extern "C" {
-	JNIEXPORT void JNICALL Java_com_cs9033_katalogkiller_ScannerActivity_findFeatures(JNIEnv*, jobject, jlong addrGray, jlong addrRgba);
+	JNIEXPORT void JNICALL Java_com_cs9033_katalogkiller_ScannerActivity_findFeatures(JNIEnv*, jobject, jlong addrGray, jlong addrRgba, jlong addrSiftDescriptor, jlong addrSurfDescriptor);
 }
 
-JNIEXPORT void JNICALL Java_com_cs9033_katalogkiller_ScannerActivity_findFeatures(JNIEnv*, jobject, jlong addrGray, jlong addrRgba)
+JNIEXPORT void JNICALL Java_com_cs9033_katalogkiller_ScannerActivity_findFeatures(JNIEnv*, jobject, jlong addrGray, jlong addrRgba, jlong addrSiftDescriptor, jlong addrSurfDescriptor)
 {
+	LOGI("Java_com_cs9033_katalogkiller_ScannerActivity_findFeatures\n");
     Mat& mGr  = *(Mat*)addrGray;
     Mat& mRgb = *(Mat*)addrRgba;
-    vector<KeyPoint> keypoints;
-    Mat descriptors;
+    Mat& siftDescriptors = *(Mat*)addrSiftDescriptor;
+    Mat& surfDescriptors = *(Mat*)addrSurfDescriptor;
+    vector<KeyPoint> siftKeypoints;
+    vector<KeyPoint> surfKeypoints;
 
 	// Create a SIFT keypoint detector.
-	SiftFeatureDetector detector;
-	detector.detect(mGr, keypoints);
-	LOGI("Detected %d keypoints\n", (int) keypoints.size());
-
+	SiftFeatureDetector siftDetector;
+	siftDetector.detect(mGr, siftKeypoints);
+	LOGI("Detected SIFT %d keypoints\n", (int) siftKeypoints.size());
+	siftDetector.compute(mGr,siftKeypoints, siftDescriptors);
+	LOGI("Computed SIFT descriptors.\n");
+	// Create SURF keypoint detector
+	SurfFeatureDetector surfDetector;
+	surfDetector.detect(mGr, surfKeypoints);
+	LOGI("Detected SURF %d keypoints\n", (int) siftKeypoints.size());
+	surfDetector.compute(mGr,surfKeypoints, surfDescriptors);
+	LOGI("Computed SURF descriptors.\n");
 	// Compute feature description.
-	detector.compute(mGr,keypoints, descriptors);
-	LOGI("Compute feature.\n");
+	LOGI("Compute feature completed.\n");
 
-    //FastFeatureDetector detector(50);
-    //detector.detect(mGr, v);
+
+
     /*for( unsigned int i = 0; i < keypoints.size(); i++ )
     {
         const KeyPoint& kp = keypoints[i];
         Scalar keypointColor = Scalar(255, 0, 0);
         circle(mRgb, Point(kp.pt.x, kp.pt.y), 10, keypointColor);
     }*/
-	Scalar keypointColor = Scalar(255, 0, 0);
-	drawKeypoints(mGr, keypoints, mRgb, keypointColor, DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
+	//Scalar keypointColor = Scalar(255, 0, 0);
+	//drawKeypoints(mGr, keypoints, mRgb, keypointColor, DrawMatchesFlags::DRAW_RICH_KEYPOINTS);
 }
 
