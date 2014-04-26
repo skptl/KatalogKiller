@@ -2,20 +2,17 @@ package com.cs9033.katalogkiller;
 
 import org.opencv.android.BaseLoaderCallback;
 import org.opencv.android.CameraBridgeViewBase;
-import org.opencv.android.OpenCVLoader;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewFrame;
 import org.opencv.android.CameraBridgeViewBase.CvCameraViewListener2;
 import org.opencv.android.LoaderCallbackInterface;
+import org.opencv.android.OpenCVLoader;
 import org.opencv.core.CvType;
 import org.opencv.core.Mat;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.widget.Button;
 
 public class ScannerActivity extends Activity implements CvCameraViewListener2 {
 
@@ -26,18 +23,23 @@ public class ScannerActivity extends Activity implements CvCameraViewListener2 {
 	private Mat mGray;
 
 	private CameraBridgeViewBase mOpenCvCameraView;
-	private Button captureButton;
+	//private Button captureButton;
 
 	private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
 		@Override
 		public void onManagerConnected(int status) {
 			switch (status) {
 			case LoaderCallbackInterface.SUCCESS: {
-				Log.i(TAG, "OpenCV loaded successfully");
 
 				// Load native library after(!) OpenCV initialization
-				System.loadLibrary("mixed_sample");
-
+				try{
+				System.loadLibrary("opencv_java");
+	    		System.loadLibrary("opencv_feature");
+				} catch(Exception e)
+				{
+					e.printStackTrace();
+				}
+	    		Log.i(TAG, "OpenCV loaded successfully");
 				mOpenCvCameraView.enableView();
 			}
 				break;
@@ -65,7 +67,7 @@ public class ScannerActivity extends Activity implements CvCameraViewListener2 {
 		mOpenCvCameraView = (CameraBridgeViewBase) findViewById(R.id.cameraSurfaceView);
 		mOpenCvCameraView.setCvCameraViewListener(this);
 		
-		captureButton = (Button) findViewById(R.id.captureButton);
+		/*captureButton = (Button) findViewById(R.id.captureButton);
 		captureButton.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -73,7 +75,7 @@ public class ScannerActivity extends Activity implements CvCameraViewListener2 {
 				// TODO Auto-generated method stub
 				
 			}
-		});
+		});*/
 	}
 	
     @Override
@@ -118,5 +120,6 @@ public class ScannerActivity extends Activity implements CvCameraViewListener2 {
 	}
 	
 	public native void findFeatures(long matAddrGr, long matAddrRgba);
+	
 
 }

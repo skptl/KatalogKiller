@@ -1,4 +1,6 @@
 #include <jni.h>
+#include <android/log.h>
+
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/features2d/features2d.hpp>
@@ -7,13 +9,11 @@
 using namespace std;
 using namespace cv;
 
-//package com.cs9033.katalogkiller;
-
 extern "C" {
 	JNIEXPORT void JNICALL Java_com_cs9033_katalogkiller_ScannerActivity_findFeatures(JNIEnv*, jobject, jlong addrGray, jlong addrRgba);
 }
 
-JNIEXPORT void JNICALL JNICALL Java_com_cs9033_katalogkiller_ScannerActivity_findFeatures(JNIEnv*, jobject, jlong addrGray, jlong addrRgba)
+JNIEXPORT void JNICALL Java_com_cs9033_katalogkiller_ScannerActivity_findFeatures(JNIEnv*, jobject, jlong addrGray, jlong addrRgba)
 {
     Mat& mGr  = *(Mat*)addrGray;
     Mat& mRgb = *(Mat*)addrRgba;
