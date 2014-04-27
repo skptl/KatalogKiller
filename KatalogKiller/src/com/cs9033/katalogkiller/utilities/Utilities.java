@@ -7,7 +7,9 @@ import android.util.Log;
 
 public class Utilities {
 
-	static boolean debug = true;
+	public static boolean debug = true;
+	
+	public static String serverURL = "";
 
 	/**
 	 * Check if this device has a camera
