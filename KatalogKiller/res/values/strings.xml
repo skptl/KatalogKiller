@@ -13,8 +13,8 @@
    <string name="typeemailid">abc@katalogkiller.com</string>
    <string name="reenteremail"> Re-enter Email id</string>
    <string name="submit"> Submit </string>
-   <string name="phoneno"> Phone Number</string>
-   <string name="Name"> Name </string>
+   <string name="phoneno"> Phone Number:</string>
+   <string name="Name"> Name: </string>
    <string name="Register"> Register </string>
    <string name="alreadyamember"> Already a member </string>
    <string name="signup"> Sign Up</string>
