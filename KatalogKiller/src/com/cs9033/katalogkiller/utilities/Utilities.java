@@ -1,15 +1,18 @@
 package com.cs9033.katalogkiller.utilities;
 
-import java.util.concurrent.ExecutionException;
+import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
+
+import org.apache.http.NameValuePair;
 
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.util.Log;
 
 public class Utilities {
@@ -49,14 +52,13 @@ public class Utilities {
 	 * @return Status of network
 	 */
 	public static boolean isNetworkActive(Context context) {
-		if (context.getPackageManager().hasSystemFeature(
-				PackageManager.FEATURE_CAMERA)) {
-
+		ConnectivityManager cm = (ConnectivityManager) context
+				.getSystemService(Context.CONNECTIVITY_SERVICE);
+		NetworkInfo netInfo = cm.getActiveNetworkInfo();
+		if (netInfo != null && netInfo.isConnectedOrConnecting()) {
 			return true;
-		} else {
-			// no camera on this device
-			return false;
 		}
+		return false;
 	}
 
 	/**
@@ -107,10 +109,11 @@ public class Utilities {
 		return c; // returns null if camera is unavailable
 	}
 
-	public static String serverCommunication(Context context) {
+	public static String serverCommunication(Context context, String URL,
+			List<NameValuePair> nameValuePairs) {
 		String result = null;
 		try {
-			HttpCommunicator worker = new HttpCommunicator();
+			HttpCommunicator worker = new HttpCommunicator(URL, nameValuePairs);
 			Future<String> submit = executor.submit(worker);
 			result = submit.get(10, TimeUnit.SECONDS);
 		} catch (Exception e) {
