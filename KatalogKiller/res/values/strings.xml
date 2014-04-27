@@ -18,6 +18,8 @@
    <string name="Register"> Register </string>
    <string name="alreadyamember"> Already a member </string>
    <string name="signup"> Sign Up</string>
+      <string name="Manual_Data">Enter Catalog Info</string>
+   <string name="enter_manual">Enter Data</string>
    
    
    <!-- changes by Shilpan -->
