@@ -1,6 +1,7 @@
 package com.cs9033.katalogkiller;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.os.AsyncTask;
@@ -47,7 +48,7 @@ public class CameraActivity extends Activity {
 
 		@Override
 		public void onPictureTaken(byte[] data, Camera camera) {
-			
+
 			String string = Base64.encodeToString(data, Base64.DEFAULT);
 			new UploadFile().execute(string);
 		}
@@ -65,20 +66,34 @@ public class CameraActivity extends Activity {
 			mCamera = null;
 		}
 	}
-	
-	 private class UploadFile extends AsyncTask<String, Integer, Long> {
-		 
-		 
-	     protected Long doInBackground(String... imageData) {
-	    	 long totalSize = 0;
-	    	 
-	         return totalSize;
-	     }
 
-	     protected void onPostExecute(Long result) {
-	         // TODO; make UI suggestion based on the result received.
-	     }
-	 }
+	private class UploadFile extends AsyncTask<String, Integer, Long> {
+		
+		private ProgressDialog progressDialog;
 
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			progressDialog = ProgressDialog.show(CameraActivity.this,
+					"Wait", "We are working on this...");
+		}
+
+		protected Long doInBackground(String... imageData) {
+			long totalSize = 0;
+			try {
+				Thread.sleep(10000);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			return totalSize;
+		}
+
+		protected void onPostExecute(Long result) {
+			progressDialog.dismiss();
+			// TODO; make UI suggestion based on the result received.
+		}
+	}
 
 }

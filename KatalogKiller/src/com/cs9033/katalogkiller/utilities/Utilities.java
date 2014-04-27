@@ -9,7 +9,9 @@ public class Utilities {
 
 	public static boolean debug = true;
 	
-	public static String serverURL = "";	
+	public static String serverURL = "";
+	
+	private static final int NTHREDS = 5;
 
 	/**
 	 * Check if this device has a camera
