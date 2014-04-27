@@ -44,7 +44,6 @@
 
             <requestFocus />
         </EditText>
-
     </LinearLayout>
 
     <LinearLayout
@@ -67,30 +66,57 @@
             android:layout_weight="1"
             android:ems="10"
             android:inputType="textPassword" />
-
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="bottom|center_horizontal"
-        android:minHeight="75dp" >
+        android:minHeight="100dp" >
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/btnlogin"
+            style="@style/ButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/facebook_button"
             android:maxEms="48"
-            android:minHeight="53dip"
+            android:minHeight="51dip"
             android:text="@string/signin"
+            android:onClick="login"
             android:textSize="20dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:text="Forgot Password"
+            android:clickable="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="#000000" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
 
         <com.facebook.widget.LoginButton
             android:id="@+id/authButton"
-            android:background="#fff"
+            style="@style/ButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@drawable/facebook_button"
             android:onClick="fbLogin" />
+
+        <Button
+            android:id="@+id/btnregister"
+            style="@style/ButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/facebook_button"
+            android:text="@string/signup" />
 
     </LinearLayout>
 

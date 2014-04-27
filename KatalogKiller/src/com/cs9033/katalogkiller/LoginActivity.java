@@ -60,7 +60,7 @@ public class LoginActivity extends Activity {
 	  @Override
 	    public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
-	        setContentView(R.layout.login);
+	        setContentView(R.layout.loginnew);
 	        
 	        facebook = new Facebook(APP_ID);
 	        mAsyncRunner = new AsyncFacebookRunner(facebook);
@@ -68,7 +68,7 @@ public class LoginActivity extends Activity {
 	        
 	        username = (EditText)findViewById(R.id.editText1);
 	        password = (EditText)findViewById(R.id.editText2);
-	        forgetpassword = (TextView)findViewById(R.id.textView5);
+	        forgetpassword = (TextView)findViewById(R.id.textView4);
 	        btnregister = (Button)findViewById(R.id.btnregister);
 	        facebooklogin=(Button)findViewById(R.id.authButton);
 
