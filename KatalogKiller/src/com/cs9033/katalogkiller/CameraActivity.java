@@ -3,7 +3,9 @@ package com.cs9033.katalogkiller;
 import android.app.Activity;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -45,8 +47,9 @@ public class CameraActivity extends Activity {
 
 		@Override
 		public void onPictureTaken(byte[] data, Camera camera) {
-			System.out.println(new String(data));
-			mCamera.startPreview();
+			
+			String string = Base64.encodeToString(data, Base64.DEFAULT);
+			new UploadFile().execute(string);
 		}
 	};
 
@@ -63,6 +66,19 @@ public class CameraActivity extends Activity {
 		}
 	}
 	
-	
+	 private class UploadFile extends AsyncTask<String, Integer, Long> {
+		 
+		 
+	     protected Long doInBackground(String... imageData) {
+	    	 long totalSize = 0;
+	    	 
+	         return totalSize;
+	     }
+
+	     protected void onPostExecute(Long result) {
+	         // TODO; make UI suggestion based on the result received.
+	     }
+	 }
+
 
 }
