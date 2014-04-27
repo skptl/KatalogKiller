@@ -80,10 +80,10 @@ public class ScannerActivity extends Activity implements CvCameraViewListener2 {
 			@Override
 			public void onClick(View v) {
 				findFeatures(mGray.getNativeObjAddr(), mRgba.getNativeObjAddr(), siftDescriptors.getNativeObjAddr(), surfDescriptors.getNativeObjAddr());
-				Utilities.log(TAG, siftDescriptors.dump(), -1);
-				Utilities.log(TAG, surfDescriptors.dump(), -1);
-				if (mOpenCvCameraView != null)
-		            mOpenCvCameraView.disableView();
+				Utilities.log(TAG, "Columns: "+siftDescriptors.cols()+" Rows: "+siftDescriptors.rows(), -1);
+				Utilities.log(TAG, "Columns: "+surfDescriptors.cols()+" Rows: "+surfDescriptors.rows(), -1);
+				//if (mOpenCvCameraView != null)
+		         //   mOpenCvCameraView.disableView();
 				
 			}
 		});
