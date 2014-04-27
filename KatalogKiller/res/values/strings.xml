@@ -20,6 +20,7 @@
    <string name="signup"> Sign Up</string>
       <string name="Manual_Data">Enter Catalog Info</string>
    <string name="enter_manual">Enter Data</string>
+   <string name="Decoding_Fail">Decoding Fail</string>
    
    
    <!-- changes by Shilpan -->
