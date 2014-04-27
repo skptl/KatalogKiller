@@ -15,6 +15,7 @@
         android:text="@string/ViewProcessedResult"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:layout_marginRight="90dp">
+        </TextView>
         
         </RelativeLayout>
         <RelativeLayout android:layout_width="wrap_content"
