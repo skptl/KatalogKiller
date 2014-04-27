@@ -43,7 +43,7 @@ public class HomeActivity extends Activity {
 
 			@Override
 			public void onClick(View v) {
-				Intent scannerActivity = new Intent(HomeActivity.this, ScannerActivity.class);
+				Intent scannerActivity = new Intent(HomeActivity.this, CameraActivity.class);
 	      	    startActivityForResult(scannerActivity, SCANNER_ACTIVITY);
 			}
 		});

@@ -2,18 +2,20 @@ package com.cs9033.server;
 
 import java.util.List;
 
-import org.opencv.features2d.DMatch;
-import org.opencv.features2d.DescriptorExtractor;
-import org.opencv.features2d.DescriptorMatcher;
-import org.opencv.features2d.FeatureDetector;
-import org.opencv.highgui.Highgui;
+
 /** http://answers.opencv.org/question/10022/the-homography-tutorial-in-java/ */
 import org.opencv.core.Core;
 import org.opencv.core.Mat;
 import org.opencv.core.MatOfDMatch;
 import org.opencv.core.MatOfKeyPoint;
+import org.opencv.features2d.DMatch;
+import org.opencv.features2d.DescriptorExtractor;
+import org.opencv.features2d.DescriptorMatcher;
+import org.opencv.features2d.FeatureDetector;
+import org.opencv.highgui.Highgui;
 
-import com.google.gson.GsonBuilder;
+import com.cs9033.server.parsers.MatParser;
+import com.google.gson.Gson;
 
 class SimpleSample {
 
@@ -46,7 +48,7 @@ class SimpleSample {
 		extractor.compute(img_object, keypoints_object, descriptor_object);
 		extractor.compute(img_scene, keypoints_scene, descriptor_scene);
 		
-		//System.out.println(descriptor_object.dump());
+		System.out.println(MatParser.matToJson(descriptor_object));
 
 		DescriptorMatcher matcher = DescriptorMatcher
 				.create(DescriptorMatcher.FLANNBASED);
