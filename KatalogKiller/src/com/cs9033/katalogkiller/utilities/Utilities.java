@@ -1,5 +1,12 @@
 package com.cs9033.katalogkiller.utilities;
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
+
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.Camera;
@@ -8,10 +15,13 @@ import android.util.Log;
 public class Utilities {
 
 	public static boolean debug = true;
-	
+
 	public static String serverURL = "";
-	
+
 	private static final int NTHREDS = 5;
+
+	private static final ExecutorService executor = Executors
+			.newFixedThreadPool(NTHREDS);
 
 	/**
 	 * Check if this device has a camera
@@ -85,17 +95,28 @@ public class Utilities {
 			}
 		}
 	}
-	
+
 	/** A safe way to get an instance of the Camera object. */
-	public static Camera getCameraInstance(){
-	    Camera c = null;
-	    try {
-	        c = Camera.open(); // attempt to get a Camera instance
-	    }
-	    catch (Exception e){
-	        // Camera is not available (in use or does not exist)
-	    }
-	    return c; // returns null if camera is unavailable
+	public static Camera getCameraInstance() {
+		Camera c = null;
+		try {
+			c = Camera.open(); // attempt to get a Camera instance
+		} catch (Exception e) {
+			// Camera is not available (in use or does not exist)
+		}
+		return c; // returns null if camera is unavailable
+	}
+
+	public static String serverCommunication(Context context) {
+		String result = null;
+		try {
+			HttpCommunicator worker = new HttpCommunicator();
+			Future<String> submit = executor.submit(worker);
+			result = submit.get(10, TimeUnit.SECONDS);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 }
