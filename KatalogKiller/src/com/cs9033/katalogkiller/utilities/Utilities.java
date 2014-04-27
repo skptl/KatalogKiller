@@ -9,7 +9,7 @@ public class Utilities {
 
 	public static boolean debug = true;
 	
-	public static String serverURL = "";
+	public static String serverURL = "";	
 
 	/**
 	 * Check if this device has a camera
