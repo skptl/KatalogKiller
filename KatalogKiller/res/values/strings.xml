@@ -21,6 +21,7 @@
       <string name="Manual_Data">Enter Catalog Info</string>
    <string name="enter_manual">Enter Data</string>
    <string name="Decoding_Fail">Decoding Fail</string>
+   <string name="ViewProcessedResult">Suggested List</string>
    
    
    <!-- changes by Shilpan -->
