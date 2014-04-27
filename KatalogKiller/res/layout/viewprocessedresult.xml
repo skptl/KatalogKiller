@@ -3,31 +3,36 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
- <RelativeLayout android:layout_width="wrap_content"
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
-        <TextView 
-            android:id="displayPurpose"
-             android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/ViewProcessedResult"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginRight="90dp">
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="50dp" >
+
+        <TextView
+            android:id="@+id/displayPurpose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="90dp"
+            android:text="@string/ViewProcessedResult"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
         </TextView>
-        
-        </RelativeLayout>
-        <RelativeLayout android:layout_width="wrap_content"
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
         android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
-    <ListView
-        android:id="@+id/listView1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
-    </ListView>
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="50dp" >
+
+        <ListView
+            android:id="@+id/listView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </ListView>
     </RelativeLayout>
 
 </LinearLayout>

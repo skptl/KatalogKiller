@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal">
+    android:orientation="horizontal" >
 
     <TabHost
         android:id="@android:id/tabhost"
@@ -29,22 +29,21 @@
                     android:id="@+id/tab1"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical""
+                    android:orientation="vertical" >
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/tab2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:orientation="vertical"
-                     >
+                    android:orientation="vertical" >
                 </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/tab3"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent" 
-                    android:orientation="vertical">
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" >
                 </LinearLayout>
             </FrameLayout>
         </LinearLayout>

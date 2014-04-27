@@ -3,54 +3,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-    <RelativeLayout android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
-        <TextView 
-            android:id="displayPurpose"
-             android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Decoding_Fail"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginRight="90dp">
-        
-        </RelativeLayout>
-<RelativeLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp">
-    <TextView
-        android:id="@+id/textView1"
-       android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Manual_Data"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginRight="90dp" />
 
-    <EditText
-        android:id="@+id/editText1"
-        android:layout_width="170dp"
-        android:layout_height="35dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_marginLeft="150dp" >
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="50dp" >
 
-        <requestFocus />
-    </EditText>
-</RelativeLayout>
- <RelativeLayout
+        <TextView
+            android:id="@+id/displayPurpose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="90dp"
+            android:text="@string/Decoding_Fail"
+            android:textAppearance="?android:attr/textAppearanceMedium" >
+        </TextView>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp" >
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="90dp"
+            android:text="@string/Manual_Data"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="170dp"
+            android:layout_height="35dp"
+            android:layout_marginLeft="150dp"
+            android:ems="10"
+            android:inputType="textPersonName" >
+
+            <requestFocus />
+        </EditText>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="100dp"
         android:layout_marginRight="10dp"
         android:layout_marginTop="30dp" >
-    <Button
-        android:id="@+id/button1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/enter_manual" />
-</RelativeLayout>
+
+        <Button
+            android:id="@+id/button1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/enter_manual" />
+    </RelativeLayout>
+
 </LinearLayout>

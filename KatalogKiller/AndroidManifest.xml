@@ -36,11 +36,11 @@
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.cs9033.katalogkiller.SplashActivity"
+            android:name="com.cs9033.katalogkiller.HomeActivity"
             android:label="@string/app_name" >
         </activity>
         <activity
-            android:name="com.cs9033.katalogkiller.HomeActivity"
+            android:name="com.cs9033.katalogkiller.SplashActivity"
             android:label="@string/app_name"
             android:screenOrientation="portrait" >
             <intent-filter>
