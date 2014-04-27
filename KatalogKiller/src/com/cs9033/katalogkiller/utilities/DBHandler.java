@@ -44,9 +44,32 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String SUBSCRIPTION_NAME = "subscription_name";
     
     
-    
+ // Creating Database Tables TABLE_USER and TABLE_USER_SUBSCRIBE and TABLE_SUBSCRIPTION
+	
+
+ 	private static final String TABLE_USER_CREATE = "create table "
+ 			+ TABLE_USER + "(" + USER_ID+ " integer primary key autoincrement, " 
+ 			+ USER_NAME + " text not null, "
+ 			+ USER_EMAIL + " text not null," 
+ 			+ USER_PASSWORD + "text not null,"
+ 			+ USER_PHONE_NUMBER + "text not null,"
+ 			+ USER_ADDRESS+"text not null);";
     
 
+	private static final String TABLE_USER_SUBSCRIBE_CREATE = "create table "
+ 			+ TABLE_USER_SUBSCRIBE + "(" + USERID+ " text not null, FOREIGN KEY ("+USERID+") REFERENCES "+TABLE_USER+" ("+USER_ID+") ,"
+ 			+ SUBSCRIPTION_ID + " text not null, FOREIGN KEY ("+SUBSCRIPTION_ID+") REFERENCES "+TABLE_SUBSCRIPTION+" ("+SUBSCRIPTIONID+") ,"
+ 			+ SUBSCRIPTION_STATUS + " text not null);";
+	
+	private static final String TABLE_SUBSCRIBTION_CREATE = "create table "
+ 			+ TABLE_SUBSCRIPTION + "("+ SUBSCRIPTIONID + " integer primary key autoincrement, " 
+ 			+ SUBSCRIPTION_NAME + " text not null);";
+	
+	
+	
+	
+	
+	
 	public DBHandler(Context context, String name, CursorFactory factory,
 			int version) {
 		super(context, name, factory, version);
@@ -56,14 +79,25 @@ public class DBHandler extends SQLiteOpenHelper {
 	@Override
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
+		db.execSQL(TABLE_USER_CREATE);
+		db.execSQL(TABLE_USER_SUBSCRIBE_CREATE);
+		db.execSQL(TABLE_SUBSCRIBTION_CREATE);
 		
 	}
-
+	
 	@Override
 	public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-		// TODO Auto-generated method stub
-		
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER_SUBSCRIBE);
+		db.execSQL("DROP TABLE IF EXISTS " + TABLE_SUBSCRIPTION);
+		onCreate(db);
+
 	}
+	
+	
+	
+	
+	
 	
 	
 
