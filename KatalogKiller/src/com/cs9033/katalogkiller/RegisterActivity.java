@@ -14,6 +14,7 @@ public class RegisterActivity extends Activity {
 	private EditText editEmailId;
 	private EditText edtPassword;
 	private EditText edtPhoneNumber;
+	private EditText edtAddress;
 	private TextView txtMember;
 	private Button btnRegister;
 	
@@ -34,8 +35,10 @@ public class RegisterActivity extends Activity {
 		 editEmailId = (EditText)findViewById(R.id.editemailid);
 		 edtPassword = (EditText)findViewById(R.id.editPassword);
 		 edtPhoneNumber = (EditText)findViewById(R.id.editPhonenumber);
+		 edtAddress=(EditText)findViewById(R.id.editAddress);
 		 txtMember = (TextView)findViewById(R.id.textalreadyamember);
 		 btnRegister = (Button)findViewById(R.id.btnregister);
+		 
 
 		 txtMember.setClickable(true);
 	        
