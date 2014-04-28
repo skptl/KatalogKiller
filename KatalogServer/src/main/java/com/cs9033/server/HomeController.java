@@ -63,5 +63,13 @@ public class HomeController {
 
 		return data;
 	}
+	
+	@RequestMapping(value = "/update.s", method = RequestMethod.GET)
+	public @ResponseBody
+	String update(
+			@RequestParam(defaultValue = "ERROR!", required = true) String data) {
+
+		return data;
+	}
 
 }
