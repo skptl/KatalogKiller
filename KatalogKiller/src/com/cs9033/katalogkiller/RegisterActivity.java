@@ -7,6 +7,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.cs9033.katalogkiller.models.User;
+import com.cs9033.katalogkiller.utilities.DBHandler;
 
 public class RegisterActivity extends Activity {
 	
@@ -18,7 +22,9 @@ public class RegisterActivity extends Activity {
 	private TextView txtMember;
 	private Button btnRegister;
 	
-	
+	private DBHandler KatalogDB;
+	private Activity activity = this;
+	private User user;
 	
 	
 
@@ -38,7 +44,7 @@ public class RegisterActivity extends Activity {
 		 edtAddress=(EditText)findViewById(R.id.editAddress);
 		 txtMember = (TextView)findViewById(R.id.textalreadyamember);
 		 btnRegister = (Button)findViewById(R.id.btnregister);
-		 
+		 KatalogDB = new DBHandler(this);
 
 		 txtMember.setClickable(true);
 	        
@@ -46,15 +52,33 @@ public class RegisterActivity extends Activity {
 	            public void onClick(View v){
 	            	Intent forgetpasswordIn = new Intent(RegisterActivity.this, LoginActivity.class);
 	      	      startActivity(forgetpasswordIn);
-	      	      
+	      	    
 	            }
 	        });
 		 
 		 btnRegister.setOnClickListener(new View.OnClickListener(){
 	            public void onClick(View v){
+	            	if(edtPersonName.getText() !=null || editEmailId.getText() !=null
+	            			|| edtPassword.getText() !=null || edtPhoneNumber.getText() !=null
+	            			|| edtAddress.getText() !=null)
+	            	{
 	            	Intent intHome=new Intent(RegisterActivity.this,HomeActivity.class);
+	            	intHome.putExtra("HOMEPAGE",edtPersonName.getText().toString() );
+	            	
 	        		startActivity(intHome);
-	      	      
+	        		
+	        		  user.setUser_name(edtPersonName.getText().toString());
+	        		  user.setEmail_id(editEmailId.getText().toString());
+	        		  user.setPassword(edtPassword.getText().toString());
+	        		  user.setPhone_number(edtPhoneNumber.getText().toString());
+	        		  user.setAddress(edtAddress.getText().toString());
+	  	      	    long id =  KatalogDB.addUser(user);
+	            	}
+	            	else
+	            	{
+	            		Toast.makeText(getApplicationContext(), "Please enter all fields to complete registration",
+	        					Toast.LENGTH_SHORT).show();
+	            	}
 	            }
 	        });
 	}

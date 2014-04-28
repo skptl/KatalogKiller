@@ -11,7 +11,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.cs9033.katalogkiller.models.Subscription;
 import com.cs9033.katalogkiller.models.User;
-import com.nyu.cs9033.eta.models.Trip;
 
 
 public class DBHandler extends SQLiteOpenHelper {
@@ -95,9 +94,30 @@ public class DBHandler extends SQLiteOpenHelper {
 	}
 
 	
+	
+	//Add USER
+	
+
+	public long addUser(User user) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(USER_NAME, user.getUser_name()); 
+		values.put(USER_EMAIL, user.getEmail_id()); 
+		values.put(USER_PASSWORD, user.getPassword()); 
+		values.put(USER_PHONE_NUMBER, user.getPhone_number()); 
+		values.put(USER_ADDRESS, user.getAddress()); 
+
+		
+
+		long id = db.insert(TABLE_USER, null, values);
+		
+		db.close();
+		return id;
+	}
+	
 	//Add User Subscription
 	
-	public long addTrip(User user) {
+	public long addUserAndSubscription(User user) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(USER_NAME, user.getUser_name()); 
