@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.TextView;
 
 public class HomeActivity extends Activity {
 
@@ -16,8 +17,10 @@ public class HomeActivity extends Activity {
 	private Button catalogButton;
 	private Button faqButton;
 	private Button leadeBoardButton;
+	private TextView txtusername;
 	
 	private static final int SCANNER_ACTIVITY = 1111; 
+	private static final int VIEW_ALL_REQUEST=100;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +37,12 @@ public class HomeActivity extends Activity {
 		catalogButton = (Button) findViewById(R.id.catalog_button);
 		faqButton = (Button) findViewById(R.id.faq_button);
 		leadeBoardButton = (Button) findViewById(R.id.leaderboard_button);
+		txtusername= (TextView)findViewById(R.id.textUsername);
+		
+		Intent i = getIntent();
+		txtusername.setText(i.getStringExtra("HOMEPAGE"));
+		
+		
 
 	}
 
@@ -53,7 +62,9 @@ public class HomeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
-
+				
+				Intent Viewallrequest = new Intent(HomeActivity.this, ViewAllRequestActivity.class);
+	      	    startActivityForResult(Viewallrequest, VIEW_ALL_REQUEST);
 			}
 		});
 

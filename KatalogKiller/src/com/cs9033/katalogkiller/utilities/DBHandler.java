@@ -65,7 +65,9 @@ public class DBHandler extends SQLiteOpenHelper {
 	
 
 	
-	
+	public DBHandler(Context context) {
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+	}
 	
 	
 	
@@ -92,9 +94,30 @@ public class DBHandler extends SQLiteOpenHelper {
 	}
 
 	
+	
+	//Add USER
+	
+
+	public long addUser(User user) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(USER_NAME, user.getUser_name()); 
+		values.put(USER_EMAIL, user.getEmail_id()); 
+		values.put(USER_PASSWORD, user.getPassword()); 
+		values.put(USER_PHONE_NUMBER, user.getPhone_number()); 
+		values.put(USER_ADDRESS, user.getAddress()); 
+
+		
+
+		long id = db.insert(TABLE_USER, null, values);
+		
+		db.close();
+		return id;
+	}
+	
 	//Add User Subscription
 	
-	public long addTrip(User user) {
+	public long addUserAndSubscription(User user) {
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		values.put(USER_NAME, user.getUser_name()); 
@@ -123,38 +146,67 @@ public class DBHandler extends SQLiteOpenHelper {
 	
 	//	Get All Subscription for a User
 	
-	public User getAllSubscriptionUser(String name) {
-		SQLiteDatabase db = this.getReadableDatabase();
-
-		Cursor cursor = db.query(TABLE_USER, new String[] { USER_ID,
-				USER_NAME, USER_EMAIL,USER_PASSWORD,USER_PHONE_NUMBER,USER_ADDRESS }, 
-				USER_NAME + "=?",
-				new String[] { String.valueOf(name) }, null, null, null, null);
-
-		if (cursor != null)
-			cursor.moveToFirst();
-        String UserId= cursor.getString(0);
-		String Username = cursor.getString(1);
-		String Useremail = cursor.getString(2);
-		String UserPassword = cursor.getString(3);
-		String UserPhoneno = cursor.getString(4);
-		String UserAddress = cursor.getString(5);
-
-		cursor = db.query(TABLE_USER_SUBSCRIBE, new String[] { USERID,
-				SUBSCRIPTION_ID, SUBSCRIPTION_STATUS,SUBSCRIPTION_NAME}, USERID + "=?",
-				new String[] { String.valueOf(UserId) }, null, null, null, null);
-
+	public ArrayList<Subscription> getAllSubscriptionUser() {
 		ArrayList<Subscription> subcription = new ArrayList<Subscription>();
-
+		
+String selectQuery = "SELECT  * FROM " + TABLE_USER_SUBSCRIBE;
+	    
+	    SQLiteDatabase db = this.getReadableDatabase();
+	    
+	    Cursor cursor = db.rawQuery(selectQuery, null);
+	    
 		for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
 			Subscription subs = new Subscription(cursor.getString(0), 
 					cursor.getString(1), cursor.getString(2));
 			subcription.add(subs);
 		}
-
-		User user = new User(UserId, Username, Useremail, UserPassword, UserPhoneno, UserAddress, subcription);
-		return user;
+          return subcription;
 	}
+	
+	
+	
+//	Get All Processed Subscription for a User
+	
+	public ArrayList<Subscription> getAllProcessedSubscriptionUser() {
+		ArrayList<Subscription> subcription = new ArrayList<Subscription>();
+		
+		SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_USER_SUBSCRIBE, new String[] { USERID,
+				SUBSCRIPTION_ID, SUBSCRIPTION_STATUS,SUBSCRIPTION_NAME}, SUBSCRIPTION_STATUS + "=?",
+				new String[] { String.valueOf(true) }, null, null, null, null);
+        
+	    
+		for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+			Subscription subs = new Subscription(cursor.getString(0), 
+					cursor.getString(1), cursor.getString(2));
+			subcription.add(subs);
+		}
+          return subcription;
+	}
+	
+	
+	
+	
+//	Get All Pending Subscription for a User
+	
+	public ArrayList<Subscription> getPendingSubscriptionUser() {
+		ArrayList<Subscription> subcription = new ArrayList<Subscription>();
+		
+		SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_USER_SUBSCRIBE, new String[] { USERID,
+				SUBSCRIPTION_ID, SUBSCRIPTION_STATUS,SUBSCRIPTION_NAME}, SUBSCRIPTION_STATUS + "=?",
+				new String[] { String.valueOf(false) }, null, null, null, null);
+        
+	    
+		for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+			Subscription subs = new Subscription(cursor.getString(0), 
+					cursor.getString(1), cursor.getString(2));
+			subcription.add(subs);
+		}
+          return subcription;
+	}
+	
+	
 	
 	
 	public Subscription getSubscriptionDetail(String username, String subscriptionname)

@@ -39,8 +39,8 @@ public class LoginActivity extends Activity {
 	private Button btnregister;
 
 	private Button facebooklogin;
-	private Facebook facebook;
-	private AsyncFacebookRunner mAsyncRunner;
+	//private Facebook facebook;
+	//private AsyncFacebookRunner mAsyncRunner;
 	String FILENAME = "AndroidSSO_data";
 	private SharedPreferences mPrefs;
 
@@ -56,8 +56,7 @@ public class LoginActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.loginnew);
 
-		facebook = new Facebook(APP_ID);
-		mAsyncRunner = new AsyncFacebookRunner(facebook);
+		
 
 		username = (EditText) findViewById(R.id.editText1);
 		password = (EditText) findViewById(R.id.editText2);
@@ -73,13 +72,6 @@ public class LoginActivity extends Activity {
 						ForgetPasswordActivity.class);
 				startActivity(forgetpasswordIn);
 
-			}
-		});
-
-		facebooklogin.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				fbLogin();
 			}
 		});
 
@@ -117,118 +109,7 @@ public class LoginActivity extends Activity {
 		}
 	}
 
-	@SuppressWarnings("deprecation")
-	public void fbLogin() {
-		Log.d(TAG, "fbLogin");
-		mPrefs = getPreferences(MODE_PRIVATE);
-		String access_token = mPrefs.getString("access_token", null);
-		long expires = mPrefs.getLong("access_expires", 0);
-
-		if (access_token != null) {
-			facebook.setAccessToken(access_token);
-		}
-
-		if (expires != 0) {
-			facebook.setAccessExpires(expires);
-		}
-
-		if (!facebook.isSessionValid()) {
-			facebook.authorize(this,
-					new String[] { "email", "publish_stream" },
-					new DialogListener() {
-
-						@Override
-						public void onCancel() {
-							// Function to handle cancel event
-						}
-
-						@Override
-						public void onComplete(Bundle values) {
-							// Function to handle complete event
-							// Edit Preferences and update facebook acess_token
-							SharedPreferences.Editor editor = mPrefs.edit();
-							editor.putString("access_token",
-									facebook.getAccessToken());
-							editor.putLong("access_expires",
-									facebook.getAccessExpires());
-							editor.commit();
-							// Toast.makeText(LoginActivity.this,"User Logged In",Toast.LENGTH_LONG).show();
-							getProfileInformation();
-						}
-
-						@Override
-						public void onError(DialogError error) {
-							// Function to handle error
-
-						}
-
-						@Override
-						public void onFacebookError(FacebookError fberror) {
-							// Function to handle Facebook errors
-
-						}
-
-					});
-		}
-	}
-
-	@SuppressWarnings("deprecation")
-	@Override
-	// / this method will be called when user submits Facebook credentials
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		// TODO Auto-generated method stub
-		super.onActivityResult(requestCode, resultCode, data);
-		facebook.authorizeCallback(requestCode, resultCode, data);
-	}
-
-	@SuppressWarnings("deprecation")
-	public void getProfileInformation() {
-		mAsyncRunner.request("me", new RequestListener() {
-			@Override
-			public void onComplete(String response, Object state) {
-				Log.d("Profile", response);
-				String json = response;
-				try {
-					JSONObject profile = new JSONObject(json);
-					// getting name of the user
-					final String firstname = profile.getString("first_name");
-					final String lastname = profile.getString("last_name");
-					// getting email of the user
-					final String email = profile.getString("email");
-
-					runOnUiThread(new Runnable() {
-
-						@Override
-						public void run() {
-							Toast.makeText(
-									getApplicationContext(),
-									"Name: " + firstname + "   " + lastname
-											+ "\nEmail: " + email,
-									Toast.LENGTH_LONG).show();
-						}
-
-					});
-
-				} catch (JSONException e) {
-					e.printStackTrace();
-				}
-			}
-
-			public void onIOException(IOException e, Object state) {
-			}
-
-			public void onFileNotFoundException(FileNotFoundException e,
-					Object state) {
-			}
-
-			public void onMalformedURLException(MalformedURLException e,
-					Object state) {
-			}
-
-			public void onFacebookError(FacebookError e, Object state) {
-			}
-		});
-	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
