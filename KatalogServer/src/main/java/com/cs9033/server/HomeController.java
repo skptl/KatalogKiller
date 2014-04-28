@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.cs9033.server.utilities.Database;
-
 /**
  * Handles requests for the application home page.
  */
@@ -22,7 +20,7 @@ public class HomeController {
 	@RequestMapping(value = "/")
 	public @ResponseBody
 	String home(@RequestParam(defaultValue = "ERROR!") String data) {
-		logger.info(Database.getJedis().ping());
+		//logger.info(Database.getJedis().ping());
 		return data;
 	}
 

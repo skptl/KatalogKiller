@@ -1,31 +1,24 @@
 package com.cs9033.server.daos;
 
-import redis.clients.jedis.Jedis;
+import java.util.List;
 
-import com.cs9033.server.utilities.Database;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.Import;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.config.EnableMongoRepositories;
+import org.springframework.data.rest.core.annotation.RepositoryRestResource;
+import org.springframework.data.rest.webmvc.config.RepositoryRestMvcConfiguration;
 
-public class UserDAO {
+import com.cs9033.server.models.User;
+
+@Configuration
+@EnableMongoRepositories
+@Import(RepositoryRestMvcConfiguration.class)
+@RepositoryRestResource(collectionResourceRel = "user", path = "user")
+public interface UserDAO extends MongoRepository<User, String> {
 	
-	private static final Jedis jedis = Database.getJedis();
-	
-	public static int createUser(String json)
-	{
-		return -1;
-	}
-	
-	public static int updateUser(String json)
-	{
-		return -1;
-	}
-	
-	public static int deleteUser(String json)
-	{
-		return -1;
-	}
-	
-	public static int readUser(String json)
-	{
-		return -1;
-	}
+    public User findByFirstName(String firstName);
+    public List<User> findByLastName(String lastName);
 
 }
+
