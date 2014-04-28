@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.cs9033.katalogkiller.models.Subscription;
 import com.cs9033.katalogkiller.models.User;
+import com.nyu.cs9033.eta.models.Trip;
 
 
 public class DBHandler extends SQLiteOpenHelper {
@@ -65,7 +66,9 @@ public class DBHandler extends SQLiteOpenHelper {
 	
 
 	
-	
+	public DBHandler(Context context) {
+		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+	}
 	
 	
 	
@@ -123,37 +126,21 @@ public class DBHandler extends SQLiteOpenHelper {
 	
 	//	Get All Subscription for a User
 	
-	public User getAllSubscriptionUser(String name) {
-		SQLiteDatabase db = this.getReadableDatabase();
-
-		Cursor cursor = db.query(TABLE_USER, new String[] { USER_ID,
-				USER_NAME, USER_EMAIL,USER_PASSWORD,USER_PHONE_NUMBER,USER_ADDRESS }, 
-				USER_NAME + "=?",
-				new String[] { String.valueOf(name) }, null, null, null, null);
-
-		if (cursor != null)
-			cursor.moveToFirst();
-        String UserId= cursor.getString(0);
-		String Username = cursor.getString(1);
-		String Useremail = cursor.getString(2);
-		String UserPassword = cursor.getString(3);
-		String UserPhoneno = cursor.getString(4);
-		String UserAddress = cursor.getString(5);
-
-		cursor = db.query(TABLE_USER_SUBSCRIBE, new String[] { USERID,
-				SUBSCRIPTION_ID, SUBSCRIPTION_STATUS,SUBSCRIPTION_NAME}, USERID + "=?",
-				new String[] { String.valueOf(UserId) }, null, null, null, null);
-
+	public ArrayList<Subscription> getAllSubscriptionUser() {
 		ArrayList<Subscription> subcription = new ArrayList<Subscription>();
-
+		
+String selectQuery = "SELECT  * FROM " + TABLE_USER_SUBSCRIBE;
+	    
+	    SQLiteDatabase db = this.getReadableDatabase();
+	    
+	    Cursor cursor = db.rawQuery(selectQuery, null);
+	    
 		for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
 			Subscription subs = new Subscription(cursor.getString(0), 
 					cursor.getString(1), cursor.getString(2));
 			subcription.add(subs);
 		}
-
-		User user = new User(UserId, Username, Useremail, UserPassword, UserPhoneno, UserAddress, subcription);
-		return user;
+          return subcription;
 	}
 	
 	
