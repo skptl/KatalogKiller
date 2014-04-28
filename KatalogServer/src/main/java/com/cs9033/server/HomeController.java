@@ -1,20 +1,13 @@
 package com.cs9033.server;
 
-import java.util.Locale;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import redis.clients.jedis.Jedis;
-
-import com.cs9033.server.models.Response;
-import com.cs9033.server.parsers.ResponseParser;
 import com.cs9033.server.utilities.Database;
 
 /**
@@ -29,7 +22,7 @@ public class HomeController {
 	@RequestMapping(value = "/")
 	public @ResponseBody
 	String home(@RequestParam(defaultValue = "ERROR!") String data) {
-
+		logger.info(Database.getJedis().ping());
 		return data;
 	}
 
