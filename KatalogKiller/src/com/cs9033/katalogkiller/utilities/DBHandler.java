@@ -11,7 +11,6 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.cs9033.katalogkiller.models.Subscription;
 import com.cs9033.katalogkiller.models.User;
-import com.nyu.cs9033.eta.models.Trip;
 
 
 public class DBHandler extends SQLiteOpenHelper {
