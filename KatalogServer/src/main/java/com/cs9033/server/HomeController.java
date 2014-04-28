@@ -41,20 +41,17 @@ public class HomeController {
 
 	@RequestMapping(value = "/register.s", method = RequestMethod.GET)
 	public @ResponseBody
-	String register(@RequestParam(value = "data", required = true) String data) {
+	String register(@RequestParam(defaultValue = "ERROR!") String data) {
 		
-		Response response = parser.toResponeModel(data);
-		String result = parser.toJsonString(response);
-		return result;
+		return data;
 	}
 	
 	@RequestMapping(value = "/unsubscribe.s", method = RequestMethod.GET)
 	public @ResponseBody
-	String unsubscribe(@RequestParam(value = "data", required = true) String data) {
+	String unsubscribe(@RequestParam(defaultValue = "ERROR!", required = true) String data) {
 		
-		Response response = parser.toResponeModel(data);
-		String result = parser.toJsonString(response);
-		return result;
+
+		return data;
 	}
 
 }
