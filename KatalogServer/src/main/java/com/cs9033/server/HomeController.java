@@ -23,37 +23,43 @@ import com.cs9033.server.utilities.Database;
 @Controller
 public class HomeController {
 
-	//private static final Jedis jedis = Database.getJedis();
-
 	private static final Logger logger = LoggerFactory
 			.getLogger(HomeController.class);
 
 	@RequestMapping(value = "/")
 	public @ResponseBody
 	String home(@RequestParam(defaultValue = "ERROR!") String data) {
-		
+
 		return data;
 	}
 
 	@RequestMapping(value = "/register.s", method = RequestMethod.GET)
 	public @ResponseBody
 	String register(@RequestParam(defaultValue = "ERROR!") String data) {
-		
-		return data;
-	}
-	
-	@RequestMapping(value = "/unsubscribe.s", method = RequestMethod.GET)
-	public @ResponseBody
-	String unsubscribe(@RequestParam(defaultValue = "ERROR!", required = true) String data) {
-		
 
 		return data;
 	}
-	
+
+	@RequestMapping(value = "/unsubscribe.s", method = RequestMethod.GET)
+	public @ResponseBody
+	String unsubscribe(
+			@RequestParam(defaultValue = "ERROR!", required = true) String data) {
+
+		return data;
+	}
+
 	@RequestMapping(value = "/suggestions.s", method = RequestMethod.GET)
 	public @ResponseBody
-	String suggestions(@RequestParam(defaultValue = "ERROR!", required = true) String data) {
-		
+	String suggestions(
+			@RequestParam(defaultValue = "ERROR!", required = true) String data) {
+
+		return data;
+	}
+
+	@RequestMapping(value = "/authenticate.s", method = RequestMethod.GET)
+	public @ResponseBody
+	String authenticate(
+			@RequestParam(defaultValue = "ERROR!", required = true) String data) {
 
 		return data;
 	}
