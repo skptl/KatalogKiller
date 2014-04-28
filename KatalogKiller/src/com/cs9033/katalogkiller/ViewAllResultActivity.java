@@ -24,7 +24,7 @@ public class ViewAllResultActivity extends ListActivity{
 
 	 public void onCreate(Bundle savedInstanceState) {
 	        super.onCreate(savedInstanceState);
-	        setContentView(R.layout.viewalllayout);
+	        setContentView(R.layout.viewallresult);
 	        KatalogDB = new DBHandler(this);
 			bindComponents();
 	        
@@ -43,7 +43,8 @@ public class ViewAllResultActivity extends ListActivity{
 				arraylistsubscription.add(subs.getSubscription_name());
 			}
 
-			listViewMembers = (ListView) findViewById(R.id.listview);
+			listViewMembers = (ListView) findViewById(R.id.viewallrequest);
+			
 
 			adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, arraylistsubscription);
 			listViewMembers.setAdapter(adapter);

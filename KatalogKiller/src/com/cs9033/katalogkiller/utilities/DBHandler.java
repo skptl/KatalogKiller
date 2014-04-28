@@ -144,6 +144,29 @@ String selectQuery = "SELECT  * FROM " + TABLE_USER_SUBSCRIBE;
 	}
 	
 	
+	
+//	Get All Processed Subscription for a User
+	
+	public ArrayList<Subscription> getAllProcessedSubscriptionUser() {
+		ArrayList<Subscription> subcription = new ArrayList<Subscription>();
+		
+		SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_USER_SUBSCRIBE, new String[] { USERID,
+				SUBSCRIPTION_ID, SUBSCRIPTION_STATUS,SUBSCRIPTION_NAME}, SUBSCRIPTION_STATUS + "=?",
+				new String[] { String.valueOf(true) }, null, null, null, null);
+        
+	    
+		for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+			Subscription subs = new Subscription(cursor.getString(0), 
+					cursor.getString(1), cursor.getString(2));
+			subcription.add(subs);
+		}
+          return subcription;
+	}
+	
+	
+	
+	
 	public Subscription getSubscriptionDetail(String username, String subscriptionname)
 	{
 		SQLiteDatabase db = this.getReadableDatabase();
