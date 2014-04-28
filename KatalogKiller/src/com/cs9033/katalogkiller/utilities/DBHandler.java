@@ -11,6 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 
 import com.cs9033.katalogkiller.models.Subscription;
 import com.cs9033.katalogkiller.models.User;
+import com.nyu.cs9033.eta.models.Trip;
 
 
 public class DBHandler extends SQLiteOpenHelper {
@@ -121,9 +122,9 @@ public class DBHandler extends SQLiteOpenHelper {
 		return id;
 	}
 	
-	//	Get Single Subscription
+	//	Get All Subscription for a User
 	
-	public User getUser(String name) {
+	public User getAllSubscriptionUser(String name) {
 		SQLiteDatabase db = this.getReadableDatabase();
 
 		Cursor cursor = db.query(TABLE_USER, new String[] { USER_ID,
@@ -155,15 +156,29 @@ public class DBHandler extends SQLiteOpenHelper {
 		User user = new User(UserId, Username, Useremail, UserPassword, UserPhoneno, UserAddress, subcription);
 		return user;
 	}
+	
+	
+	public Subscription getSubscriptionDetail(String username, String subscriptionname)
+	{
+		SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_USER_SUBSCRIBE, new String[] { USERID,
+				SUBSCRIPTION_ID, SUBSCRIPTION_STATUS,SUBSCRIPTION_NAME}, SUBSCRIPTION_NAME + "=?",
+				new String[] { String.valueOf(subscriptionname) }, null, null, null, null);
+        
+        if (cursor != null)
+			cursor.moveToFirst();
+        
+        String SubscriptionId= cursor.getString(1);
+		String SubscriptionStatus = cursor.getString(2);
+		String SubscriptionName = cursor.getString(3);
+		
+		Subscription subs = new Subscription(SubscriptionId,SubscriptionName,SubscriptionStatus);
+		return subs;
+		
+		
+	}
+	
+	
 
 	
-	
-	
-	
-	
-	
-	
-	
-	
-
 }
