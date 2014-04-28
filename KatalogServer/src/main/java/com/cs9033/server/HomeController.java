@@ -23,20 +23,16 @@ import com.cs9033.server.utilities.Database;
 @Controller
 public class HomeController {
 
-	private static final Jedis jedis = Database.getJedis();
-	private static final ResponseParser parser = new ResponseParser();
+	//private static final Jedis jedis = Database.getJedis();
 
 	private static final Logger logger = LoggerFactory
 			.getLogger(HomeController.class);
 
-	/**
-	 * Simply selects the home view to render by returning its name.
-	 */
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home(Locale locale, Model model) {
-		logger.info("Oops.. You reached a wrong place!!");
-		model.addAttribute("serverTime", jedis.time().get(0));
-		return "home";
+	@RequestMapping(value = "/")
+	public @ResponseBody
+	String home(@RequestParam(defaultValue = "ERROR!") String data) {
+		
+		return data;
 	}
 
 	@RequestMapping(value = "/register.s", method = RequestMethod.GET)
@@ -49,6 +45,14 @@ public class HomeController {
 	@RequestMapping(value = "/unsubscribe.s", method = RequestMethod.GET)
 	public @ResponseBody
 	String unsubscribe(@RequestParam(defaultValue = "ERROR!", required = true) String data) {
+		
+
+		return data;
+	}
+	
+	@RequestMapping(value = "/suggestions.s", method = RequestMethod.GET)
+	public @ResponseBody
+	String suggestions(@RequestParam(defaultValue = "ERROR!", required = true) String data) {
 		
 
 		return data;
