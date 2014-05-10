@@ -36,7 +36,7 @@ public class ViewProcessedResultActivity extends ListActivity{
 			 */
 			private void bindComponents() {
 
-				arraylistsubscriptionRaw = KatalogDB.getAllProcessedSubscriptionUser();
+				//arraylistsubscriptionRaw = KatalogDB.getAllProcessedSubscriptionUser();
 				
 				arraylistsubscription = new ArrayList<String>();
 				

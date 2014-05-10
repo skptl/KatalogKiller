@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.cs9033.katalogkiller.models.User;
 import com.cs9033.katalogkiller.utilities.DBHandler;
+import com.cs9033.katalogkiller.utilities.Utilities;
 
 public class RegisterActivity extends Activity {
 	
@@ -24,7 +25,7 @@ public class RegisterActivity extends Activity {
 	
 	private DBHandler KatalogDB;
 	private Activity activity = this;
-	private User user;
+	private User user = new User(null, null, null, null, null, null, null);
 	
 	
 
@@ -58,14 +59,12 @@ public class RegisterActivity extends Activity {
 		 
 		 btnRegister.setOnClickListener(new View.OnClickListener(){
 	            public void onClick(View v){
+	            	Utilities.log("TEST", "above", -1);
 	            	if(edtPersonName.getText() !=null || editEmailId.getText() !=null
 	            			|| edtPassword.getText() !=null || edtPhoneNumber.getText() !=null
 	            			|| edtAddress.getText() !=null)
 	            	{
-	            	Intent intHome=new Intent(RegisterActivity.this,HomeActivity.class);
-	            	intHome.putExtra("HOMEPAGE",edtPersonName.getText().toString() );
 	            	
-	        		startActivity(intHome);
 	        		
 	        		  user.setUser_name(edtPersonName.getText().toString());
 	        		  user.setEmail_id(editEmailId.getText().toString());
@@ -73,6 +72,9 @@ public class RegisterActivity extends Activity {
 	        		  user.setPhone_number(edtPhoneNumber.getText().toString());
 	        		  user.setAddress(edtAddress.getText().toString());
 	  	      	    long id =  KatalogDB.addUser(user);
+	  	      	    
+	  	      	Intent registerIn = new Intent(RegisterActivity.this, LoginActivity.class);
+	      	      startActivity(registerIn);
 	            	}
 	            	else
 	            	{

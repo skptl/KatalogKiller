@@ -37,7 +37,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String TABLE_USER_SUBSCRIBE= "UserSubscribeTable";
  
     // User Subscription Table Columns names
-    private static final String USERID = "user_id";
+    private static final String USERID = "userid";
     private static final String SUBSCRIPTION_ID = "subscription_id";
     private static final String SUBSCRIPTION_STATUS = "subscription_status";
     private static final String SUBSCRIPTION_NAME = "subscription_name";
@@ -52,16 +52,18 @@ public class DBHandler extends SQLiteOpenHelper {
  			+ TABLE_USER + "(" + USER_ID+ " integer primary key autoincrement, " 
  			+ USER_NAME + " text not null, "
  			+ USER_EMAIL + " text not null," 
- 			+ USER_PASSWORD + "text not null,"
- 			+ USER_PHONE_NUMBER + "text not null,"
- 			+ USER_ADDRESS+"text not null);";
+ 			+ USER_PASSWORD + " text not null,"
+ 			+ USER_PHONE_NUMBER + " text not null,"
+ 			+ USER_ADDRESS+" text not null);";
     
 
-	private static final String TABLE_USER_SUBSCRIBE_CREATE = "create table "
- 			+ TABLE_USER_SUBSCRIBE + "(" + USERID+ " text not null, FOREIGN KEY ("+USERID+") REFERENCES "+TABLE_USER+" ("+USER_ID+") ,"
+	/*private static final String TABLE_USER_SUBSCRIBE_CREATE = "create table "
+ 			+ TABLE_USER_SUBSCRIBE + "(" 
  			+ SUBSCRIPTION_ID + " integer primary key autoincrement,"
+		    + USERID + " text not null,"
+			+ "FOREIGN KEY ("+USERID+") REFERENCES "+TABLE_USER+" ("+USER_ID+"),"
  			+ SUBSCRIPTION_STATUS + " text not null,"
- 			+ SUBSCRIPTION_NAME + " text not null,);";
+ 			+ SUBSCRIPTION_NAME + " text not null);";*/
 	
 
 	
@@ -81,7 +83,7 @@ public class DBHandler extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
 		db.execSQL(TABLE_USER_CREATE);
-		db.execSQL(TABLE_USER_SUBSCRIBE_CREATE);
+		//db.execSQL(TABLE_USER_SUBSCRIBE_CREATE);
 		
 	}
 	
@@ -110,7 +112,7 @@ public class DBHandler extends SQLiteOpenHelper {
 		
 
 		long id = db.insert(TABLE_USER, null, values);
-		
+		 
 		db.close();
 		return id;
 	}
@@ -164,10 +166,30 @@ String selectQuery = "SELECT  * FROM " + TABLE_USER_SUBSCRIBE;
 	}
 	
 	
+//	Get Password
+	
+	public String getPassword(String username ) {
+		String password = null;
+		
+		SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_USER, new String[] { USER_PASSWORD}, USER_NAME + "=?",
+				new String[] { String.valueOf(username) }, null, null, null, null);
+        
+	    
+		for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+			password = cursor.getString(0);
+			
+			
+		}
+         return password;
+	}
+	
+	
+	
 	
 //	Get All Processed Subscription for a User
 	
-	public ArrayList<Subscription> getAllProcessedSubscriptionUser() {
+	/*public ArrayList<Subscription> getAllProcessedSubscriptionUser() {
 		ArrayList<Subscription> subcription = new ArrayList<Subscription>();
 		
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -182,14 +204,14 @@ String selectQuery = "SELECT  * FROM " + TABLE_USER_SUBSCRIBE;
 			subcription.add(subs);
 		}
           return subcription;
-	}
+	}*/
 	
 	
 	
 	
 //	Get All Pending Subscription for a User
 	
-	public ArrayList<Subscription> getPendingSubscriptionUser() {
+	/*public ArrayList<Subscription> getPendingSubscriptionUser() {
 		ArrayList<Subscription> subcription = new ArrayList<Subscription>();
 		
 		SQLiteDatabase db = this.getReadableDatabase();
@@ -229,7 +251,7 @@ String selectQuery = "SELECT  * FROM " + TABLE_USER_SUBSCRIBE;
 		
 	}
 	
-	
+*/	
 
 	
 }

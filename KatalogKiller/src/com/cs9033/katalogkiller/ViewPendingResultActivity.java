@@ -39,7 +39,7 @@ public class ViewPendingResultActivity extends ListActivity{
 				 */
 				private void bindComponents() {
 
-					arraylistsubscriptionRaw = KatalogDB.getPendingSubscriptionUser();
+			//		arraylistsubscriptionRaw = KatalogDB.getPendingSubscriptionUser();
 					
 					arraylistsubscription = new ArrayList<String>();
 					
