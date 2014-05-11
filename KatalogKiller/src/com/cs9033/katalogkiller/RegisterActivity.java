@@ -22,6 +22,11 @@ public class RegisterActivity extends Activity {
 	private EditText edtAddress;
 	private TextView txtMember;
 	private Button btnRegister;
+	String personnametext=null;
+	String emailidtext=null;
+	String passwordtext=null;
+	String phonenumbertext=null;
+	String addresstext=null;
 	
 	private DBHandler KatalogDB;
 	private Activity activity = this;
@@ -60,26 +65,33 @@ public class RegisterActivity extends Activity {
 		 btnRegister.setOnClickListener(new View.OnClickListener(){
 	            public void onClick(View v){
 	            	Utilities.log("TEST", "above", -1);
-	            	if(edtPersonName.getText().equals("")|| editEmailId.getText().equals("")
-	            			|| edtPassword.getText().equals("") || edtPhoneNumber.getText().equals("")
-	            			|| edtAddress.getText().equals(""))
-	            	{
-	            	
-	        		
-	        		  user.setUser_name(edtPersonName.getText().toString());
-	        		  user.setEmail_id(editEmailId.getText().toString());
-	        		  user.setPassword(edtPassword.getText().toString());
-	        		  user.setPhone_number(edtPhoneNumber.getText().toString());
-	        		  user.setAddress(edtAddress.getText().toString());
-	  	      	    long id =  KatalogDB.addUser(user);
-	  	      	    
-	  	      	Intent registerIn = new Intent(RegisterActivity.this, LoginActivity.class);
-	      	      startActivity(registerIn);
-	            	}
-	            	else
+	            	personnametext=edtPersonName.getText().toString();
+	            	emailidtext=editEmailId.getText().toString();
+	            	passwordtext=edtPassword.getText().toString();
+	            	phonenumbertext=edtPhoneNumber.getText().toString();
+	            	addresstext=edtAddress.getText().toString();
+	            	System.out.println("Personm name"+personnametext);
+	            	if(personnametext.matches("")|| emailidtext.matches("")
+	            			|| passwordtext.matches("") || phonenumbertext.matches("")
+	            			|| addresstext.matches(""))
 	            	{
 	            		Toast.makeText(getApplicationContext(), "Please enter all fields to complete registration",
 	        					Toast.LENGTH_SHORT).show();
+	        		
+	        		 
+	            	}
+	            	else
+	            	{
+	            		 user.setUser_name(edtPersonName.getText().toString());
+		        		  user.setEmail_id(editEmailId.getText().toString());
+		        		  user.setPassword(edtPassword.getText().toString());
+		        		  user.setPhone_number(edtPhoneNumber.getText().toString());
+		        		  user.setAddress(edtAddress.getText().toString());
+		  	      	    long id =  KatalogDB.addUser(user);
+		  	      	    
+		  	      	Intent registerIn = new Intent(RegisterActivity.this, LoginActivity.class);
+		      	      startActivity(registerIn);
+	            		
 	            	}
 	            }
 	        });
