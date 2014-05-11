@@ -11,7 +11,7 @@ import android.widget.ListView;
 import com.cs9033.katalogkiller.models.Subscription;
 import com.cs9033.katalogkiller.utilities.DBHandler;
 
-public class ViewAllResultActivity extends ListActivity{
+public class ViewAllResultActivity extends Activity{
 	 private ListView listViewMembers;
 
  	private ArrayList<String> arraylistsubscription;

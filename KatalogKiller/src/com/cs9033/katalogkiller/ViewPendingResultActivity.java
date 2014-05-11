@@ -14,7 +14,7 @@ import com.cs9033.katalogkiller.utilities.DBHandler;
 
 
 
-public class ViewPendingResultActivity extends ListActivity{
+public class ViewPendingResultActivity extends Activity{
 
 	 private ListView listViewMembers;
 
@@ -39,7 +39,7 @@ public class ViewPendingResultActivity extends ListActivity{
 				 */
 				private void bindComponents() {
 
-			//		arraylistsubscriptionRaw = KatalogDB.getPendingSubscriptionUser();
+					arraylistsubscriptionRaw = KatalogDB.getPendingSubscriptionUser();
 					
 					arraylistsubscription = new ArrayList<String>();
 					
