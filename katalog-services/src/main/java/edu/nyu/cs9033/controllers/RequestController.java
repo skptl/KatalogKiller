@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.List;
 
 import org.apache.commons.io.IOUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,17 +40,19 @@ public class RequestController {
 
 	@RequestMapping(value = "/try", method = RequestMethod.POST)
 	public @ResponseBody
-	String handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("email") String email) {
+	List<String> handleFileUpload(
+			@RequestParam(value = "file", required = true) MultipartFile file,
+			@RequestParam(value = "email", required = true) String email) {
 		if (!file.isEmpty()) {
 			try {
 				byte[] bytes = file.getBytes();
 
-				return "You successfully uploaded file !";
+				return null;
 			} catch (Exception e) {
-				return "You failed to upload !";
+				return null;
 			}
 		} else {
-			return "You failed to upload, because the file was empty.";
+			return null;
 		}
 	}
 
