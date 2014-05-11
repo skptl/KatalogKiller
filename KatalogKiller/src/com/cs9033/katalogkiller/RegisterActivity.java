@@ -2,6 +2,7 @@ package com.cs9033.katalogkiller;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,9 +12,10 @@ import android.widget.Toast;
 
 import com.cs9033.katalogkiller.models.User;
 import com.cs9033.katalogkiller.utilities.DBHandler;
+import com.cs9033.katalogkiller.utilities.GPSTracker;
 import com.cs9033.katalogkiller.utilities.Utilities;
 
-public class RegisterActivity extends Activity {
+public class RegisterActivity extends Activity{
 	
 	private EditText edtPersonName;
 	private EditText editEmailId;
@@ -27,6 +29,12 @@ public class RegisterActivity extends Activity {
 	String passwordtext=null;
 	String phonenumbertext=null;
 	String addresstext=null;
+	
+	private static double latitude = 0.0;
+	private static double longitude=0.0;
+	private LocationManager locationManager;
+	private String provider;
+	private String serverid;
 	
 	private DBHandler KatalogDB;
 	private Activity activity = this;
@@ -42,6 +50,8 @@ public class RegisterActivity extends Activity {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		 setContentView(R.layout.register);
+		// check if GPS enabled
+	     GPSTracker gpsTracker = new GPSTracker(this);
 		 
 		 edtPersonName = (EditText)findViewById(R.id.editName);
 		 editEmailId = (EditText)findViewById(R.id.editemailid);
@@ -51,9 +61,10 @@ public class RegisterActivity extends Activity {
 		 txtMember = (TextView)findViewById(R.id.textalreadyamember);
 		 btnRegister = (Button)findViewById(R.id.btnregister);
 		 KatalogDB = new DBHandler(this);
-
+		 edtAddress.setText(gpsTracker.getAddressLine(this));
+		 
 		 txtMember.setClickable(true);
-	        
+		 
 		 txtMember.setOnClickListener(new View.OnClickListener(){
 	            public void onClick(View v){
 	            	Intent forgetpasswordIn = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -96,6 +107,5 @@ public class RegisterActivity extends Activity {
 	            }
 	        });
 	}
-
-
+	
 }

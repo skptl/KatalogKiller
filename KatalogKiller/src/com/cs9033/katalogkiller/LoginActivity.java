@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -19,6 +20,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cs9033.katalogkiller.models.User;
 import com.cs9033.katalogkiller.utilities.DBHandler;
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.AsyncFacebookRunner.RequestListener;
@@ -32,6 +34,7 @@ public class LoginActivity extends Activity {
 	private static String TAG = "LoginActivity";
 	private static final String APP_ID = "629800467114260";
 	private String trackUsername;
+	private User user = new User(null, null, null, null, null, null, null);
 
 	private EditText username = null;
 	private EditText password = null;
@@ -203,11 +206,15 @@ public class LoginActivity extends Activity {
 					final String lastname = profile.getString("last_name");
 					// getting email of the user
 					final String email = profile.getString("email");
-
+					user.setEmail_id(profile.getString("email"));
+					user.setPassword("null");
+					//user.setAddress((new JSONArray(profile.getJSONArray("location").getString(1))).toString());
+					Log.i("Tag",(profile.getString("location").split(",")[1]));
 					runOnUiThread(new Runnable() {
 
 						@Override
 						public void run() {
+							
 							Toast.makeText(
 									getApplicationContext(),
 									"Name: " + firstname + "   " + lastname

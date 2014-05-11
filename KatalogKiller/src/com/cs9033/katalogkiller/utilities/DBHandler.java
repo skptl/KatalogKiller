@@ -203,6 +203,7 @@ public class DBHandler extends SQLiteOpenHelper {
 			String tid = cur.getString(0);
 			Log.i("LOG", tid);
 		}
+		db.close(); 
 		return cur.getString(0);
 	}
 	
