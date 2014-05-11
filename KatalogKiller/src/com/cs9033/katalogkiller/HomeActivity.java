@@ -1,13 +1,17 @@
 package com.cs9033.katalogkiller;
 
+import com.cs9033.katalogkiller.models.User;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class HomeActivity extends Activity {
 
@@ -18,6 +22,7 @@ public class HomeActivity extends Activity {
 	private Button faqButton;
 	private Button leadeBoardButton;
 	private TextView txtusername;
+	private User user;
 	
 	private static final int SCANNER_ACTIVITY = 1111; 
 	private static final int VIEW_ALL_REQUEST=100;
@@ -26,6 +31,9 @@ public class HomeActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
+		
+		user=getIntent().getParcelableExtra("USER");
+		System.out.println(user.toString());
 
 		bindComponents();
 		addListeners();
@@ -90,5 +98,25 @@ public class HomeActivity extends Activity {
 		getMenuInflater().inflate(R.menu.main, menu);
 		return true;
 	}
-
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId())
+        {
+        case R.id.action_settings:
+            // Single menu item is selected do something
+            // Ex: launching new activity/screen or show alert message
+            Toast.makeText(HomeActivity.this, "Setting is Selected", Toast.LENGTH_SHORT).show();
+            return true;
+ 
+        case R.id.action_profile:
+            Toast.makeText(HomeActivity.this, "Profile is Selected", Toast.LENGTH_SHORT).show();
+            Intent i=new Intent(HomeActivity.this,UserProfile.class);
+            i.putExtra("USER",user);
+			startActivity(i);
+            return true;
+  
+        default:
+            return super.onOptionsItemSelected(item);
+        }
+	}
 }
