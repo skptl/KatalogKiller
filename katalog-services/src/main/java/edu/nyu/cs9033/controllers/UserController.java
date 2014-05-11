@@ -31,6 +31,7 @@ public class UserController {
 
 	@Autowired
 	public UserController(UserRepository userRepository) {
+		super();
 		this.userRepository = userRepository;
 	}
 
