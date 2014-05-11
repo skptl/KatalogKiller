@@ -1,0 +1,12 @@
+/bin
+/build
+.DS_Store
+*.iml
+*.ipr
+*.iws
+*.orig
+target
+.springBeans
+.settings/
+/.gradle/
+/.idea/
