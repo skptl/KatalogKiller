@@ -99,10 +99,13 @@ public class RegisterActivity extends Activity{
 		        		  user.setPhone_number(edtPhoneNumber.getText().toString());
 		        		  user.setAddress(edtAddress.getText().toString());
 		  	      	    long id =  KatalogDB.addUser(user);
-		  	      	    
+		  	      	    if(id!=-1){
 		  	      	Intent registerIn = new Intent(RegisterActivity.this, LoginActivity.class);
 		      	      startActivity(registerIn);
-	            		
+		  	      	    }
+		  	      	    else{
+		  	      	    	Toast.makeText(RegisterActivity.this,"User Already Exists",Toast.LENGTH_SHORT).show();
+		  	      	    }
 	            	}
 	            }
 	        });
