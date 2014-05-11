@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.cs9033.katalogkiller.models.User;
 import com.cs9033.katalogkiller.utilities.DBHandler;
+import com.cs9033.katalogkiller.utilities.GPSTracker;
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.AsyncFacebookRunner.RequestListener;
 import com.facebook.android.DialogError;
@@ -41,6 +42,8 @@ public class LoginActivity extends Activity {
 	private TextView forgetpassword;
 	private Button login;
 	private Button btnregister;
+	GPSTracker gpsTracker;
+	private DBHandler KatalogDB;
 
 	private Button facebooklogin;
 	private Facebook facebook;
@@ -62,6 +65,9 @@ public class LoginActivity extends Activity {
 
 		facebook = new Facebook(APP_ID);
 		mAsyncRunner = new AsyncFacebookRunner(facebook);
+		
+		gpsTracker = new GPSTracker(this);
+		KatalogDB = new DBHandler(this);
 
 		username = (EditText) findViewById(R.id.editText1);
 		password = (EditText) findViewById(R.id.editText2);
@@ -194,6 +200,8 @@ public class LoginActivity extends Activity {
 
 	@SuppressWarnings("deprecation")
 	public void getProfileInformation() {
+		// check if GPS enabled
+	    
 		mAsyncRunner.request("me", new RequestListener() {
 			@Override
 			public void onComplete(String response, Object state) {
@@ -207,9 +215,12 @@ public class LoginActivity extends Activity {
 					// getting email of the user
 					final String email = profile.getString("email");
 					user.setEmail_id(profile.getString("email"));
-					user.setPassword("null");
-					//user.setAddress((new JSONArray(profile.getJSONArray("location").getString(1))).toString());
-					Log.i("Tag",(profile.getString("location").split(",")[1]));
+					user.setPassword("");
+					user.setAddress(gpsTracker.getAddressLine(LoginActivity.this));
+					user.setPhone_number("");
+					user.setUser_name(profile.getString("name"));
+					System.out.println(user.toString());
+					long id =  KatalogDB.addUser(user);
 					runOnUiThread(new Runnable() {
 
 						@Override

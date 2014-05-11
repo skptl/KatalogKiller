@@ -55,7 +55,7 @@ public class DBHandler extends SQLiteOpenHelper {
  	private static final String TABLE_USER_CREATE = "create table "
  			+ TABLE_USER + "(" + USER_ID+ " integer primary key autoincrement, " 
  			+ USER_NAME + " text not null, "
- 			+ USER_EMAIL + " text not null," 
+ 			+ USER_EMAIL + " text not null unique," 
  			+ USER_PASSWORD + " text not null,"
  			+ USER_PHONE_NUMBER + " text not null,"
  			+ USER_ADDRESS+" text not null);";
