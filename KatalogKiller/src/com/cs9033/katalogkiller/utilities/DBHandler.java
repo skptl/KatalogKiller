@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.cs9033.katalogkiller.models.Subscription;
 import com.cs9033.katalogkiller.models.User;
@@ -15,8 +16,11 @@ import com.cs9033.katalogkiller.models.User;
 
 public class DBHandler extends SQLiteOpenHelper {
 	
+	private static final String TAG = "DBHandler";
+	
 	 // All Static variables
     // Database Version
+	
     private static final int DATABASE_VERSION = 4;
  
     // Database Name
@@ -84,6 +88,7 @@ public class DBHandler extends SQLiteOpenHelper {
 		// TODO Auto-generated method stub
 		db.execSQL(TABLE_USER_CREATE);
 		//db.execSQL(TABLE_USER_SUBSCRIBE_CREATE);
+		Log.i(TAG,"Tables Created");
 		
 	}
 	

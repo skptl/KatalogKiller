@@ -60,9 +60,9 @@ public class RegisterActivity extends Activity {
 		 btnRegister.setOnClickListener(new View.OnClickListener(){
 	            public void onClick(View v){
 	            	Utilities.log("TEST", "above", -1);
-	            	if(edtPersonName.getText() !=null || editEmailId.getText() !=null
-	            			|| edtPassword.getText() !=null || edtPhoneNumber.getText() !=null
-	            			|| edtAddress.getText() !=null)
+	            	if(edtPersonName.getText().equals("")|| editEmailId.getText().equals("")
+	            			|| edtPassword.getText().equals("") || edtPhoneNumber.getText().equals("")
+	            			|| edtAddress.getText().equals(""))
 	            	{
 	            	
 	        		

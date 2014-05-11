@@ -2,6 +2,8 @@ package com.cs9033.katalogkiller;
 
 
 
+import com.cs9033.katalogkiller.utilities.DBHandler;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,6 +20,7 @@ public class SplashActivity extends Activity {
 	   @Override
 	   protected void onCreate(Bundle savedInstanceState) {
 	      super.onCreate(savedInstanceState);
+	      DBHandler db = new DBHandler(this);
 
 	      this.requestWindowFeature(Window.FEATURE_NO_TITLE);    // Removes title bar
 	      this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);    // Removes notification bar
