@@ -22,9 +22,37 @@ public class Request {
 	@Indexed(unique = true)
 	@Field("email")
 	private String email;
-	
+
 	@Field("imageRequested")
 	private byte[] imageRequested;
+	
+	public Request(boolean status, String email,
+			byte[] imageRequested) {
+		super();
+		this.status = status;
+		this.email = email;
+		this.imageRequested = imageRequested;
+	}
+
+	public Request() {
+		super();
+	}
+
+	public String get_id() {
+		return _id;
+	}
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public byte[] getImageRequested() {
+		return imageRequested;
+	}
 	
 
 }
