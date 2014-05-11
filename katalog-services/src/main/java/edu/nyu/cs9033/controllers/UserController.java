@@ -39,7 +39,7 @@ public class UserController {
 	String root(@PathVariable(value = "email") String email) {
 
 		for (int i = 0; i < 999; i++) {
-			User user = new User(email, email, i + email, email, i + "");
+			User user = new User(email, email, i + email, email, email, i + "",i*i+"");
 			User saved = userRepository.save(user);
 			System.out.println(saved.get_id());
 		}
