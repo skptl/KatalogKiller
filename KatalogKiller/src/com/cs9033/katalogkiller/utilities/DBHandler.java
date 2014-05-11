@@ -37,7 +37,7 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String TABLE_USER_SUBSCRIBE= "UserSubscribeTable";
  
     // User Subscription Table Columns names
-    private static final String USERID = "user_id";
+    private static final String USERID = "userid";
     private static final String SUBSCRIPTION_ID = "subscription_id";
     private static final String SUBSCRIPTION_STATUS = "subscription_status";
     private static final String SUBSCRIPTION_NAME = "subscription_name";
@@ -52,16 +52,18 @@ public class DBHandler extends SQLiteOpenHelper {
  			+ TABLE_USER + "(" + USER_ID+ " integer primary key autoincrement, " 
  			+ USER_NAME + " text not null, "
  			+ USER_EMAIL + " text not null," 
- 			+ USER_PASSWORD + "text not null,"
- 			+ USER_PHONE_NUMBER + "text not null,"
- 			+ USER_ADDRESS+"text not null);";
+ 			+ USER_PASSWORD + " text not null,"
+ 			+ USER_PHONE_NUMBER + " text not null,"
+ 			+ USER_ADDRESS+" text not null);";
     
 
-	private static final String TABLE_USER_SUBSCRIBE_CREATE = "create table "
- 			+ TABLE_USER_SUBSCRIBE + "(" + USERID+ " text not null, FOREIGN KEY ("+USERID+") REFERENCES "+TABLE_USER+" ("+USER_ID+") ,"
+	/*private static final String TABLE_USER_SUBSCRIBE_CREATE = "create table "
+ 			+ TABLE_USER_SUBSCRIBE + "(" 
  			+ SUBSCRIPTION_ID + " integer primary key autoincrement,"
+		    + USERID + " text not null,"
+			+ "FOREIGN KEY ("+USERID+") REFERENCES "+TABLE_USER+" ("+USER_ID+"),"
  			+ SUBSCRIPTION_STATUS + " text not null,"
- 			+ SUBSCRIPTION_NAME + " text not null,);";
+ 			+ SUBSCRIPTION_NAME + " text not null);";*/
 	
 
 	
@@ -81,7 +83,7 @@ public class DBHandler extends SQLiteOpenHelper {
 	public void onCreate(SQLiteDatabase db) {
 		// TODO Auto-generated method stub
 		db.execSQL(TABLE_USER_CREATE);
-		db.execSQL(TABLE_USER_SUBSCRIBE_CREATE);
+		//db.execSQL(TABLE_USER_SUBSCRIBE_CREATE);
 		
 	}
 	
@@ -110,7 +112,7 @@ public class DBHandler extends SQLiteOpenHelper {
 		
 
 		long id = db.insert(TABLE_USER, null, values);
-		
+		 
 		db.close();
 		return id;
 	}
@@ -149,7 +151,7 @@ public class DBHandler extends SQLiteOpenHelper {
 	public ArrayList<Subscription> getAllSubscriptionUser() {
 		ArrayList<Subscription> subcription = new ArrayList<Subscription>();
 		
-String selectQuery = "SELECT  * FROM " + TABLE_USER_SUBSCRIBE;
+/*String selectQuery = "SELECT  * FROM " + TABLE_USER_SUBSCRIBE;
 	    
 	    SQLiteDatabase db = this.getReadableDatabase();
 	    
@@ -159,9 +161,52 @@ String selectQuery = "SELECT  * FROM " + TABLE_USER_SUBSCRIBE;
 			Subscription subs = new Subscription(cursor.getString(0), 
 					cursor.getString(1), cursor.getString(2));
 			subcription.add(subs);
-		}
-          return subcription;
+		}*/
+		Subscription sub1= new Subscription("0","HCL Tech","True");
+		Subscription sub2= new Subscription("1","IBM","True");
+		Subscription sub3= new Subscription("2","MICROSOFT","True");
+		Subscription sub4= new Subscription("3","GOOGLE","True");
+		Subscription sub5= new Subscription("4","EBAY","True");
+		
+		Subscription sub6= new Subscription("0","Samsung","True");
+		Subscription sub7= new Subscription("1","Apple","True");
+		Subscription sub8= new Subscription("2","Yahoo","True");
+		Subscription sub9= new Subscription("3","Bloomberg","True");
+		Subscription sub10= new Subscription("4","Quora","True");
+		
+		subcription.add(sub1);
+		subcription.add(sub2);
+		subcription.add(sub3);
+		subcription.add(sub4);
+		subcription.add(sub5);
+		subcription.add(sub6);
+		subcription.add(sub7);
+		subcription.add(sub8);
+		subcription.add(sub9);
+		subcription.add(sub10);
+		
+		return subcription;
 	}
+	
+	
+//	Get Password
+	
+	public String getPassword(String username ) {
+		String password = null;
+		
+		SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.query(TABLE_USER, new String[] { USER_PASSWORD}, USER_NAME + "=?",
+				new String[] { String.valueOf(username) }, null, null, null, null);
+        
+	    
+		for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
+			password = cursor.getString(0);
+			
+			
+		}
+         return password;
+	}
+	
 	
 	
 	
@@ -170,7 +215,7 @@ String selectQuery = "SELECT  * FROM " + TABLE_USER_SUBSCRIBE;
 	public ArrayList<Subscription> getAllProcessedSubscriptionUser() {
 		ArrayList<Subscription> subcription = new ArrayList<Subscription>();
 		
-		SQLiteDatabase db = this.getReadableDatabase();
+		/*SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_USER_SUBSCRIBE, new String[] { USERID,
 				SUBSCRIPTION_ID, SUBSCRIPTION_STATUS,SUBSCRIPTION_NAME}, SUBSCRIPTION_STATUS + "=?",
 				new String[] { String.valueOf(true) }, null, null, null, null);
@@ -180,8 +225,21 @@ String selectQuery = "SELECT  * FROM " + TABLE_USER_SUBSCRIBE;
 			Subscription subs = new Subscription(cursor.getString(0), 
 					cursor.getString(1), cursor.getString(2));
 			subcription.add(subs);
-		}
-          return subcription;
+		}*/
+		Subscription sub1= new Subscription("0","HCL Tech","True");
+		Subscription sub2= new Subscription("1","IBM","True");
+		Subscription sub3= new Subscription("2","MICROSOFT","True");
+		Subscription sub4= new Subscription("3","GOOGLE","True");
+		Subscription sub5= new Subscription("4","EBAY","True");
+		
+		subcription.add(sub1);
+		subcription.add(sub2);
+		subcription.add(sub3);
+		subcription.add(sub4);
+		subcription.add(sub5);
+		
+		return subcription;
+		
 	}
 	
 	
@@ -192,7 +250,7 @@ String selectQuery = "SELECT  * FROM " + TABLE_USER_SUBSCRIBE;
 	public ArrayList<Subscription> getPendingSubscriptionUser() {
 		ArrayList<Subscription> subcription = new ArrayList<Subscription>();
 		
-		SQLiteDatabase db = this.getReadableDatabase();
+		/*SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_USER_SUBSCRIBE, new String[] { USERID,
 				SUBSCRIPTION_ID, SUBSCRIPTION_STATUS,SUBSCRIPTION_NAME}, SUBSCRIPTION_STATUS + "=?",
 				new String[] { String.valueOf(false) }, null, null, null, null);
@@ -202,14 +260,26 @@ String selectQuery = "SELECT  * FROM " + TABLE_USER_SUBSCRIBE;
 			Subscription subs = new Subscription(cursor.getString(0), 
 					cursor.getString(1), cursor.getString(2));
 			subcription.add(subs);
-		}
-          return subcription;
+		}*/
+		Subscription sub1= new Subscription("0","Samsung","True");
+		Subscription sub2= new Subscription("1","Apple","True");
+		Subscription sub3= new Subscription("2","Yahoo","True");
+		Subscription sub4= new Subscription("3","Bloomberg","True");
+		Subscription sub5= new Subscription("4","Quora","True");
+		
+		subcription.add(sub1);
+		subcription.add(sub2);
+		subcription.add(sub3);
+		subcription.add(sub4);
+		subcription.add(sub5);
+		
+		return subcription;
 	}
 	
 	
 	
 	
-	public Subscription getSubscriptionDetail(String username, String subscriptionname)
+	/*public Subscription getSubscriptionDetail(String username, String subscriptionname)
 	{
 		SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_USER_SUBSCRIBE, new String[] { USERID,
@@ -229,7 +299,7 @@ String selectQuery = "SELECT  * FROM " + TABLE_USER_SUBSCRIBE;
 		
 	}
 	
-	
+*/	
 
 	
 }

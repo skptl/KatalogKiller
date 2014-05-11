@@ -19,6 +19,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cs9033.katalogkiller.utilities.DBHandler;
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.AsyncFacebookRunner.RequestListener;
 import com.facebook.android.DialogError;
@@ -102,16 +103,23 @@ public class LoginActivity extends Activity {
 	}
 
 	public void login(View view) {
-		if (username.getText().toString().equals("admin")
-				&& password.getText().toString().equals("admin")) {
+		/*if (username.getText().toString().equals("admin")
+				&& password.getText().toString().equals("admin")) {*/
+			DBHandler db = new DBHandler(this);
+			String Password = db.getPassword(username.getText().toString());
+			if(Password.equals(password.getText().toString()))
+			{
+			
 			Toast.makeText(getApplicationContext(), "Redirecting...",
 					Toast.LENGTH_SHORT).show();
-
+         
 			Intent homePageIntent = new Intent(this, HomeActivity.class);
 			homePageIntent.putExtra(trackUsername, "Username");
 			startActivity(homePageIntent);
+			}
 
-		} else {
+		//}
+		else {
 			Toast.makeText(getApplicationContext(), "Wrong Credentials",
 					Toast.LENGTH_SHORT).show();
 		}

@@ -79,6 +79,22 @@
             android:name="com.cs9033.katalogkiller.ManualEntry"
             android:label="@string/app_name" >
         </activity>
+        <activity
+            android:name="com.cs9033.katalogkiller.ViewAllRequestActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.cs9033.katalogkiller.ViewAllResultActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.cs9033.katalogkiller.ViewProcessedResultActivity"
+            android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.cs9033.katalogkiller.ViewPendingResultActivity"
+            android:label="@string/app_name" >
+        </activity>
     </application>
 
 </manifest>

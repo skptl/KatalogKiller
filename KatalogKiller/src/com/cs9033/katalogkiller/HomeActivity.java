@@ -37,10 +37,6 @@ public class HomeActivity extends Activity {
 		catalogButton = (Button) findViewById(R.id.catalog_button);
 		faqButton = (Button) findViewById(R.id.faq_button);
 		leadeBoardButton = (Button) findViewById(R.id.leaderboard_button);
-		txtusername= (TextView)findViewById(R.id.textUsername);
-		
-		Intent i = getIntent();
-		txtusername.setText(i.getStringExtra("HOMEPAGE"));
 		
 		
 
