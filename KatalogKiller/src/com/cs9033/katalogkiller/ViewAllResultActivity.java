@@ -51,7 +51,7 @@ public class ViewAllResultActivity extends Activity{
 			
 
 			listViewMembers = (ListView) findViewById(R.id.viewallrequest);
-			listViewMembers.setAdapter(new ItemListBaseAdapter(this, arraylistsubscriptionRaw));
+			//listViewMembers.setAdapter(new ItemListBaseAdapter(this, arraylistsubscriptionRaw));
 			listViewMembers.setOnItemClickListener(new OnItemClickListener() {
 			
 				public void onItemClick(AdapterView<?> a, View v, int position, long id) { 
