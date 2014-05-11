@@ -38,11 +38,12 @@ public class UserController {
 	String root(@PathVariable(value = "email") String email) {
 
 		for (int i = 0; i < 999; i++) {
-			User user = new User(email, email, i + email, email, email, i + "",i*i+"");
+			User user = new User(email, email, i + email, email, email, i + "",
+					i * i + "");
 			User saved = userRepository.save(user);
 			System.out.println(saved.get_id());
 		}
-		return "Yoo.. MongoDB !!";
+		return "Added 1000 fake users.";
 	}
 
 	@RequestMapping(value = "/delete-all", method = RequestMethod.GET)
@@ -80,6 +81,22 @@ public class UserController {
 		return users;
 	}
 
+	@RequestMapping(value = "/authenticate/{email}/{pswd}", method = RequestMethod.GET)
+	public @ResponseBody
+	boolean authenticate(@PathVariable(value = "email") String email,
+			@PathVariable(value = "pswd") String pswd) {
+
+		User user = userRepository.findByEmail(email);
+
+		if (user == null)
+			return false;
+
+		if (user.getPassword().equalsIgnoreCase(pswd))
+			return true;
+
+		return false;
+	}
+
 	@RequestMapping(value = "/add", consumes = "application/json", method = RequestMethod.POST)
 	public @ResponseBody
 	User addUser(@RequestBody User user) {
@@ -92,6 +109,27 @@ public class UserController {
 		User existing = userRepository.findByEmail(user.getEmail());
 		if (existing != null)
 			return null;
+		User saved = userRepository.save(user);
+
+		return saved;
+	}
+
+	@RequestMapping(value = "/update", consumes = "application/json", method = RequestMethod.POST)
+	public @ResponseBody
+	User updateUser(@RequestBody User user) {
+
+		BindException errors = new BindException(user, "user");
+		UserValidator validator = new UserValidator();
+		validator.validate(user, errors);
+		if (errors.getErrorCount() > 0)
+			return null;
+
+		User existing = userRepository.findByEmail(user.getEmail());
+		if (existing == null)
+			return null;
+
+		userRepository.delete(existing);
+
 		User saved = userRepository.save(user);
 
 		return saved;

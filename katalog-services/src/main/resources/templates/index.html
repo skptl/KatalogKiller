@@ -19,43 +19,46 @@
 				</div>
 				<div class="row clearfix">
 					<div class="col-md-6 column">
-						<form role="form">
+						<form role="form" action="#" th:action="@{/images/greeting}" method="post"
+							enctype="multipart/form-data">
 							<div class="form-group">
-								<label for="exampleInputEmail1">Email address</label><input
-									class="form-control" id="exampleInputEmail1" type="email" />
-							</div>
-							<div class="form-group">
-								<label for="exampleInputPassword1">Password</label><input
-									class="form-control" id="exampleInputPassword1" type="password" />
+								<label for="companyName">Company Name</label><input
+									class="form-control" id="companyName" name="companyName" type="text" />
 							</div>
 							<div class="form-group">
-								<label for="exampleInputFile">File input</label><input
-									id="exampleInputFile" type="file" />
-								<p class="help-block">Example block-level help text here.</p>
+								<label for="email">Email address</label><input
+									class="form-control" id="email" name="email" type="email" />
 							</div>
-							<div class="checkbox">
-								<label><input type="checkbox" /> Check me out</label>
+							<div class="form-group">
+								<label for="companyPhone">Phone number</label><input
+									class="form-control" id="companyPhone" name="companyPhone" type="text" />
 							</div>
+							<div class="form-group">
+								<label for="companyAddress">Address</label><input
+									class="form-control" id="companyAddress" name="companyAddress" type="text" />
+							</div>
+							<div class="form-group">
+								<label for="companyLogo">Company logo</label><input
+									id="companyLogo" name="companyLogo" type="file" />
+								<p class="help-block">Upload a logo(max size: 2MB).</p>
+							</div>
+
 							<button type="submit" class="btn btn-default">Submit</button>
 						</form>
 					</div>
 					<div class="col-md-6 column">
 						<ol>
-							<li>Lorem ipsum dolor sit amet</li>
-							<li>Consectetur adipiscing elit</li>
-							<li>Integer molestie lorem at massa</li>
-							<li>Facilisis in pretium nisl aliquet</li>
-							<li>Nulla volutpat aliquam velit</li>
-							<li>Faucibus porta lacus fringilla vel</li>
-							<li>Aenean sit amet erat nunc</li>
-							<li>Eget porttitor lorem</li>
+							<li>Add company name</li>
+							<li>Add company phone number</li>
+							<li>Add company email</li>
+							<li>Add company address</li>
+							<li>Add company logo</li>
 						</ol>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
-	<p th:text="${name}" />
 	<!-- Bootstrap -->
 	<script src="../js/jquery.js"></script>
 	<script src="../js/bootstrap.js"></script>

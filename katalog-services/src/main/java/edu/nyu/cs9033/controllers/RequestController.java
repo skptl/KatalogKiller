@@ -1,5 +1,8 @@
 package edu.nyu.cs9033.controllers;
 
+import java.io.BufferedOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import edu.nyu.cs9033.repositories.CompanyRepository;
 import edu.nyu.cs9033.repositories.RequestRepository;
 
 /**
@@ -22,29 +26,14 @@ import edu.nyu.cs9033.repositories.RequestRepository;
 public class RequestController {
 
 	private final RequestRepository requestRepository;
+	private final CompanyRepository companyRepository;
 
 	@Autowired
-	public RequestController(RequestRepository requestRepository) {
+	public RequestController(RequestRepository requestRepository,
+			CompanyRepository companyRepository) {
 		super();
 		this.requestRepository = requestRepository;
-	}
-
-	@RequestMapping(value = "/try", method = RequestMethod.POST)
-	public @ResponseBody
-	List<String> handleFileUpload(
-			@RequestParam(value = "file", required = true) MultipartFile file,
-			@RequestParam(value = "email", required = true) String email) {
-		if (!file.isEmpty()) {
-			try {
-				byte[] bytes = file.getBytes();
-
-				return null;
-			} catch (Exception e) {
-				return null;
-			}
-		} else {
-			return null;
-		}
+		this.companyRepository = companyRepository;
 	}
 
 }
