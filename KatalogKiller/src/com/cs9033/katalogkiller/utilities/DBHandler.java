@@ -8,6 +8,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 
 import com.cs9033.katalogkiller.models.Subscription;
 import com.cs9033.katalogkiller.models.User;
@@ -15,8 +16,11 @@ import com.cs9033.katalogkiller.models.User;
 
 public class DBHandler extends SQLiteOpenHelper {
 	
+	private static final String TAG = "DBHandler";
+	
 	 // All Static variables
     // Database Version
+	
     private static final int DATABASE_VERSION = 4;
  
     // Database Name
@@ -84,6 +88,7 @@ public class DBHandler extends SQLiteOpenHelper {
 		// TODO Auto-generated method stub
 		db.execSQL(TABLE_USER_CREATE);
 		//db.execSQL(TABLE_USER_SUBSCRIBE_CREATE);
+		Log.i(TAG,"Tables Created");
 		
 	}
 	
@@ -168,11 +173,11 @@ public class DBHandler extends SQLiteOpenHelper {
 		Subscription sub4= new Subscription("3","GOOGLE","True");
 		Subscription sub5= new Subscription("4","EBAY","True");
 		
-		Subscription sub6= new Subscription("0","Samsung","True");
-		Subscription sub7= new Subscription("1","Apple","True");
-		Subscription sub8= new Subscription("2","Yahoo","True");
-		Subscription sub9= new Subscription("3","Bloomberg","True");
-		Subscription sub10= new Subscription("4","Quora","True");
+		Subscription sub6= new Subscription("5","Samsung","True");
+		Subscription sub7= new Subscription("6","Apple","True");
+		Subscription sub8= new Subscription("7","Yahoo","True");
+		Subscription sub9= new Subscription("8","Bloomberg","True");
+		Subscription sub10= new Subscription("9","Quora","True");
 		
 		subcription.add(sub1);
 		subcription.add(sub2);
@@ -192,19 +197,14 @@ public class DBHandler extends SQLiteOpenHelper {
 //	Get Password
 	
 	public String getPassword(String username ) {
-		String password = null;
-		
 		SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_USER, new String[] { USER_PASSWORD}, USER_NAME + "=?",
-				new String[] { String.valueOf(username) }, null, null, null, null);
-        
-	    
-		for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-			password = cursor.getString(0);
-			
-			
+		Cursor cur = db.rawQuery("select USER_PASSWORD from UserTable where USER_EMAIL=? ",new String[]{username});
+		if (cur.moveToFirst()) {
+			String tid = cur.getString(0);
+			Log.i("LOG", tid);
 		}
-         return password;
+		db.close(); 
+		return cur.getString(0);
 	}
 	
 	
