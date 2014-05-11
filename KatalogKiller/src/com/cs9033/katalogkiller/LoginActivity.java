@@ -121,8 +121,9 @@ public class LoginActivity extends Activity {
 			
 			Toast.makeText(getApplicationContext(), "Redirecting...",
 					Toast.LENGTH_SHORT).show();
-         
+			User userinfo=db.userInfo(username.getText().toString());
 			Intent homePageIntent = new Intent(this, HomeActivity.class);
+			homePageIntent.putExtra("USER",userinfo);
 			homePageIntent.putExtra(trackUsername, "Username");
 			startActivity(homePageIntent);
 			}
@@ -256,11 +257,5 @@ public class LoginActivity extends Activity {
 		});
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
 
 }

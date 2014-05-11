@@ -207,6 +207,24 @@ public class DBHandler extends SQLiteOpenHelper {
 		return cur.getString(0);
 	}
 	
+	public User userInfo(String username){
+		User user = new User(null, null, null, null, null, null, null);
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cur = db.rawQuery("select * from UserTable where USER_EMAIL=? ",new String[]{username});
+		if (cur.moveToFirst()) {
+			
+			user.setUser_name(cur.getString(1));
+			user.setEmail_id(cur.getString(2));
+			user.setAddress(cur.getString(5));
+			user.setPhone_number(cur.getString(4));
+			System.out.println(user.toString());
+
+		}
+		db.close(); 
+		return user;
+		
+	}
+	
 	
 	
 	
