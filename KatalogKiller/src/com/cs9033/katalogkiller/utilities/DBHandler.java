@@ -197,19 +197,13 @@ public class DBHandler extends SQLiteOpenHelper {
 //	Get Password
 	
 	public String getPassword(String username ) {
-		String password = null;
-		
 		SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.query(TABLE_USER, new String[] { USER_PASSWORD}, USER_NAME + "=?",
-				new String[] { String.valueOf(username) }, null, null, null, null);
-        
-	    
-		for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-			password = cursor.getString(0);
-			
-			
+		Cursor cur = db.rawQuery("select USER_PASSWORD from UserTable where USER_EMAIL=? ",new String[]{username});
+		if (cur.moveToFirst()) {
+			String tid = cur.getString(0);
+			Log.i("LOG", tid);
 		}
-         return password;
+		return cur.getString(0);
 	}
 	
 	
