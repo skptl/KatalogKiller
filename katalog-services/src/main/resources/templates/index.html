@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<!-- Bootstrap core CSS -->
+<link href="../css/bootstrap.css" rel="stylesheet" />
+<!-- Bootstrap theme -->
+<link href="../css/bootstrap-theme.css" rel="stylesheet" />
+<title>KatalogKiller</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+	<div class="container">
+		<div class="row clearfix">
+			<form class="form-horizontal">
+				<fieldset>
+
+					<!-- Form Name -->
+					<legend>Add Company</legend>
+
+					<!-- Text input-->
+					<div class="control-group">
+						<label class="control-label" for="companyName">Company
+							name:</label>
+						<div class="controls">
+							<input id="companyName" name="companyName" placeholder="Name"
+								class="input-xlarge" type="text" />
+							<p class="help-block">Please enter company name to be added.</p>
+						</div>
+					</div>
+
+					<!-- Text input-->
+					<div class="control-group">
+						<label class="control-label" for="companyAddress">Address:</label>
+						<div class="controls">
+							<input id="companyAddress" name="companyAddress"
+								placeholder="Address" class="input-xlarge" required=""
+								type="text" />
+							<p class="help-block">Enter complete address in a single
+								line.</p>
+						</div>
+					</div>
+
+					<!-- Text input-->
+					<div class="control-group">
+						<label class="control-label" for="companyPhone">Phone:</label>
+						<div class="controls">
+							<input id="companyPhone" name="companyPhone" placeholder="Phone"
+								class="input-xlarge" required="" type="text" />
+							<p class="help-block">Enter phone number.</p>
+						</div>
+					</div>
+
+					<!-- Text input-->
+					<div class="control-group">
+						<label class="control-label" for="companyEmail">Email:</label>
+						<div class="controls">
+							<input id="companyEmail" name="companyEmail"
+								placeholder="abc@example.com" class="input-xlarge" required=""
+								type="text" />
+							<p class="help-block">Enter email for unsubscribing</p>
+						</div>
+					</div>
+
+					<!-- File Button -->
+					<div class="control-group">
+						<label class="control-label" for="companyLogo">Logo:</label>
+						<div class="controls">
+							<input id="companyLogo" name="companyLogo" class="input-file"
+								type="file" />
+						</div>
+					</div>
+
+				</fieldset>
+			</form>
+		</div>
+	</div>
+	<p th:text="${name}" />
+	<!-- Bootstrap -->
+	<script src="../js/jquery.js"></script>
+	<script src="../js/bootstrap.js"></script>
+</body>
+</html>
