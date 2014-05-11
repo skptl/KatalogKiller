@@ -225,6 +225,16 @@ public class DBHandler extends SQLiteOpenHelper {
 		
 	}
 	
+	public int updateInfo(String useremail, String phone, String address){
+		SQLiteDatabase db = this.getReadableDatabase();
+		ContentValues updateuser = new ContentValues();
+		   updateuser.put(USER_ADDRESS,address);
+		   updateuser.put(USER_PHONE_NUMBER,phone);		   
+		   int rows=db.update(TABLE_USER, updateuser, "USER_EMAIL=?", new String[]{useremail});
+		return rows;
+		
+		
+	}
 	
 	
 	
