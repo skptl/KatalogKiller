@@ -46,10 +46,6 @@ public class ViewAllResultActivity extends Activity{
 				arraylistsubscription.add(subs.getSubscription_name());
 			}*/
 			
-			
-			
-			
-
 			listViewMembers = (ListView) findViewById(R.id.viewallrequest);
 			listViewMembers.setAdapter(new ItemListBaseAdapter(this, arraylistsubscriptionRaw));
 			listViewMembers.setOnItemClickListener(new OnItemClickListener() {
