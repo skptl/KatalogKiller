@@ -11,7 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import edu.nyu.cs9033.models.Company;
 import edu.nyu.cs9033.repositories.CompanyRepository;
-import edu.nyu.cs9033.repositories.FileRepository;
 
 /**
  * @author Shilpan Patel
