@@ -12,6 +12,11 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 import com.mongodb.Mongo;
 import com.mongodb.MongoClient;
 
+/**
+ * @author Shilpan Patel
+ * 
+ */
+
 @Configuration
 @EnableMongoRepositories(basePackages = "edu.nyu.cs9033.repositories")
 public class MongoConfig extends AbstractMongoConfiguration {

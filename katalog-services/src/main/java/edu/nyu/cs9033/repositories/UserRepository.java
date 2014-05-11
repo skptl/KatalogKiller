@@ -6,6 +6,11 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 
 import edu.nyu.cs9033.models.User;
 
+/**
+ * @author Shilpan Patel
+ * 
+ */
+
 public interface UserRepository extends MongoRepository<User, String> {
 
 	public List<User> findByEmail(String email);

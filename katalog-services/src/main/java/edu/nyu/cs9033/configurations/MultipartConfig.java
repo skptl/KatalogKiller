@@ -6,6 +6,11 @@ import org.springframework.boot.context.embedded.MultiPartConfigFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+/**
+ * @author Shilpan Patel
+ * 
+ */
+
 @Configuration
 public class MultipartConfig {
 

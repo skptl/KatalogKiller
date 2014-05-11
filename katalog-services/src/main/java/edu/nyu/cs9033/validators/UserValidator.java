@@ -6,6 +6,11 @@ import org.springframework.validation.Validator;
 
 import edu.nyu.cs9033.models.User;
 
+/**
+ * @author Shilpan Patel
+ * 
+ */
+
 public class UserValidator implements Validator {
 
 	@Override
