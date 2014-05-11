@@ -110,7 +110,7 @@ public class ImageController {
     @RequestMapping("/greeting")
     public String greeting(@RequestParam(value="name", required=false, defaultValue="World") String name, Model model) {
     	System.out.println("HI");
-        model.addAttribute("name", name);
+        //model.addAttribute("name", name);
         return "index";
     }
 

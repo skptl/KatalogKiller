@@ -1,7 +1,5 @@
 package edu.nyu.cs9033.controllers;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Controller;
@@ -73,11 +71,11 @@ public class UserController {
 
 	@RequestMapping(value = "/find/email/{email}", method = RequestMethod.GET)
 	public @ResponseBody
-	List<User> findByEmail(@PathVariable(value = "email") String email) {
+	User findByEmail(@PathVariable(value = "email") String email) {
 
 		if (email == null)
 			return null;
-		List<User> users = userRepository.findByEmail(email);
+		User users = userRepository.findByEmail(email);
 
 		return users;
 	}
@@ -91,8 +89,8 @@ public class UserController {
 		validator.validate(user, errors);
 		if (errors.getErrorCount() > 0)
 			return null;
-		List<User> existing = userRepository.findByEmail(user.getEmail());
-		if (existing != null && existing.size() != 0)
+		User existing = userRepository.findByEmail(user.getEmail());
+		if (existing != null)
 			return null;
 		User saved = userRepository.save(user);
 
