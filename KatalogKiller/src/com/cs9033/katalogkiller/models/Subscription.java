@@ -57,6 +57,7 @@ public class Subscription implements Parcelable{
 	public void writeToParcel(Parcel arg0, int arg1) {
 		// TODO Auto-generated method stub
 		List<String> subsData = new ArrayList<String>();
+	
 		subsData.add(0, this.subscription_id);
 		subsData.add(1, this.subscription_name);
 		subsData.add(1, this.subscription_status);

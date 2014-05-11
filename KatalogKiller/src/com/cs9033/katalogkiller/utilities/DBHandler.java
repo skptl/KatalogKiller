@@ -168,11 +168,11 @@ public class DBHandler extends SQLiteOpenHelper {
 		Subscription sub4= new Subscription("3","GOOGLE","True");
 		Subscription sub5= new Subscription("4","EBAY","True");
 		
-		Subscription sub6= new Subscription("0","Samsung","True");
-		Subscription sub7= new Subscription("1","Apple","True");
-		Subscription sub8= new Subscription("2","Yahoo","True");
-		Subscription sub9= new Subscription("3","Bloomberg","True");
-		Subscription sub10= new Subscription("4","Quora","True");
+		Subscription sub6= new Subscription("5","Samsung","True");
+		Subscription sub7= new Subscription("6","Apple","True");
+		Subscription sub8= new Subscription("7","Yahoo","True");
+		Subscription sub9= new Subscription("8","Bloomberg","True");
+		Subscription sub10= new Subscription("9","Quora","True");
 		
 		subcription.add(sub1);
 		subcription.add(sub2);
