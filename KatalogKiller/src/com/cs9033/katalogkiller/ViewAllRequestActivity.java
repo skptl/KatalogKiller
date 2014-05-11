@@ -13,6 +13,8 @@ public class ViewAllRequestActivity extends TabActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewallrequest);
+        
+        
         TabHost tabHost = getTabHost();       
       
         tabHost.addTab(tabHost.newTabSpec("tab1").setIndicator("View All Requests").setContent(new Intent(this, ViewAllResultActivity.class)));
