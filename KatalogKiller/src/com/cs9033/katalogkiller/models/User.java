@@ -8,6 +8,11 @@ import android.os.Parcelable;
 
 public class User implements Parcelable{
 
+	
+
+
+
+
 	private String user_id;
 	private String user_name;
 	private String email_id;
@@ -136,6 +141,14 @@ public class User implements Parcelable{
 	public int describeContents() {
 		// TODO Auto-generated method stub
 		return 0;
+	}
+	
+	@Override
+	public String toString() {
+		return "User [user_id=" + user_id + ", user_name=" + user_name
+				+ ", email_id=" + email_id + ", password=" + password
+				+ ", phone_number=" + phone_number + ", Address=" + Address
+				+ ", subscriptionlist=" + subscriptionlist + "]";
 	}
 
 	
