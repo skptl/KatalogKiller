@@ -27,6 +27,8 @@ public class HomeActivity extends Activity {
 	private static final int SCANNER_ACTIVITY = 1111; 
 	private static final int VIEW_ALL_REQUEST=100;
 
+	private static final int FAQ_RESULT = 1212;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -78,8 +80,7 @@ public class HomeActivity extends Activity {
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
 				Intent Viewallrequest = new Intent(HomeActivity.this, FAQActivity.class);
-	      	    startActivityForResult(Viewallrequest, VIEW_ALL_REQUEST);
-
+	      	    startActivityForResult(Viewallrequest, FAQ_RESULT);
 			}
 		});
 

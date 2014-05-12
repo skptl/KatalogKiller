@@ -1,9 +1,24 @@
 package com.cs9033.katalogkiller;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.location.LocationManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -61,7 +76,8 @@ public class RegisterActivity extends Activity{
 		 txtMember = (TextView)findViewById(R.id.textalreadyamember);
 		 btnRegister = (Button)findViewById(R.id.btnregister);
 		 KatalogDB = new DBHandler(this);
-		 edtAddress.setText(gpsTracker.getAddressLine(this)+","+gpsTracker.getCountryName(this)+"-"+gpsTracker.getPostalCode(this));
+		 edtAddress.setEnabled(true);
+		 edtAddress.setText(gpsTracker.getAddressLine(this));
 		 
 		 txtMember.setClickable(true);
 		 
@@ -99,6 +115,11 @@ public class RegisterActivity extends Activity{
 		        		  user.setPhone_number(edtPhoneNumber.getText().toString());
 		        		  user.setAddress(edtAddress.getText().toString());
 		  	      	    long id =  KatalogDB.addUser(user);
+		  	      	    
+		  	      	new HttpAsyncTask()
+					.execute(Utilities.serverURL +"users/add/");
+		  	      	    
+		  	      	    
 		  	      	    if(id!=-1){
 		  	      	Intent registerIn = new Intent(RegisterActivity.this, LoginActivity.class);
 		      	      startActivity(registerIn);
@@ -110,5 +131,80 @@ public class RegisterActivity extends Activity{
 	            }
 	        });
 	}
+	
+	
+	public String POST(String url, User user) {
+		InputStream inputStream = null;
+		String result = "";
+		try {
+
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httpPost = new HttpPost(url);
+			String json = "";
+			long unixTime = System.currentTimeMillis() / 1000L;
+			
+			
+			
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.accumulate("fName", user.getUser_name());
+			jsonObject.accumulate("lName", user.getUser_name());
+			jsonObject.accumulate("email", user.getEmail_id());
+			jsonObject.accumulate("password", user.getPassword());
+			jsonObject.accumulate("address", user.getPassword());
+			jsonObject.accumulate("zipCode", "00000");
+			jsonObject.accumulate("phoneNumber", user.getPhone_number());
+		
+		
+			json = jsonObject.toString();
+			StringEntity se = new StringEntity(json);
+			httpPost.setEntity(se);
+			httpPost.setHeader("Accept", "application/json");
+			httpPost.setHeader("Content-type", "application/json");
+			HttpResponse httpResponse = httpclient.execute(httpPost);
+			inputStream = httpResponse.getEntity().getContent();
+			if (inputStream != null) {
+				result = convertInputStreamToString(inputStream);
+				Log.i("user_id", result);
+
+			} else
+				result = "Did not work!";
+
+		} catch (Exception e) {
+			Log.d("InputStream", e.getLocalizedMessage());
+		}
+
+		return result;
+	}
+	
+	
+	private class HttpAsyncTask extends AsyncTask<String, Void, String> {
+		@Override
+		protected String doInBackground(String... urls) {
+			return POST(urls[0], user);
+		}
+
+		// onPostExecute displays the results of the AsyncTask.
+		@Override
+		protected void onPostExecute(String result) {
+			Toast.makeText(getBaseContext(),
+					"CREATE_TRIP executed sucessfully!", Toast.LENGTH_SHORT)
+					.show();
+		}
+	}
+	
+	private static String convertInputStreamToString(InputStream inputStream)
+			throws IOException {
+		BufferedReader bufferedReader = new BufferedReader(
+				new InputStreamReader(inputStream));
+		String line = "";
+		String result = "";
+		while ((line = bufferedReader.readLine()) != null) {
+			result += line;
+		}
+		return result;
+
+
+	}
+	
 	
 }
