@@ -39,7 +39,7 @@ public class UserProfile extends Activity {
 		user=getIntent().getParcelableExtra("USER");
 		username.setText(user.getUser_name());
 		useremail.setText(user.getEmail_id());
-		usernumber.setText(user.getPhone_number());
+		usernumber.setText(user.getPhone_number().toString());
 		useraddress.setText(user.getAddress());
 		
 		System.out.println(user.toString());
@@ -53,6 +53,8 @@ public class UserProfile extends Activity {
 			System.out.println(row);	
 			if(row==1){
 			Toast.makeText(UserProfile.this,"Profile Updated",Toast.LENGTH_SHORT).show();	
+			Intent i=new Intent(UserProfile.this,HomeActivity.class);
+			startActivity(i);
 			}
 			else
 			{

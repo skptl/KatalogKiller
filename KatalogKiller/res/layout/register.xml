@@ -1,157 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content" >
-<LinearLayout 
+    android:layout_height="wrap_content"
+    android:padding="10px" >
+
+<LinearLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="388dp"
     android:orientation="vertical" >
-     <RelativeLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Name"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginRight="70dp" />
-
-    <EditText
-        android:id="@+id/editName"
-        android:layout_width="170dp"
-        android:layout_height="35dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:layout_marginLeft="120dp" >
-
-        <requestFocus />
-    </EditText>
-    
-    </RelativeLayout>
-    <RelativeLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        >
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/username"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginRight="70dp"  />
-
-    <EditText
-        android:id="@+id/editemailid"
-         android:layout_width="170dp"
-        android:layout_height="35dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:layout_marginLeft="120dp"  />
-    </RelativeLayout>
-<RelativeLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        >
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/password"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginRight="70dp"  />
-
-    <EditText
-        android:id="@+id/editPassword"
-         android:layout_width="170dp"
-        android:layout_height="35dp"
-        android:ems="10"
-        android:inputType="textPassword" 
-        android:layout_marginLeft="120dp" />
-    </RelativeLayout>
-    <RelativeLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        >
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/phoneno"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginRight="70dp"  />
-
-    <EditText
-        android:id="@+id/editPhonenumber"
-        android:layout_width="170dp"
-        android:layout_height="35dp"
-        android:ems="10"
-        android:inputType="phone" 
-        android:layout_marginLeft="120dp"/>
-    </RelativeLayout>
-    
-    <RelativeLayout android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        >
-
-    <TextView
-        android:id="@+id/textAddress"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/Address"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_marginRight="70dp"  />
-
-    <EditText
-        android:id="@+id/editAddress"
-        android:layout_width="170dp"
-        android:layout_height="35dp"
-        android:ems="10"
-        android:inputType="phone" 
-        android:layout_marginLeft="120dp"/>
-    </RelativeLayout>
-    
-    
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="30dp" >
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/editName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/info_boxes"
+        android:hint="Username"
+        android:ems="10"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/editemailid"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/info_boxes"
+        android:ems="10"
+        android:hint="Email Id"
+        android:inputType="textEmailAddress" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/editPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/info_boxes"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword" />
+
+    <EditText
+        android:id="@+id/editPhonenumber"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/info_boxes"
+        android:ems="10"
+        android:hint="Phone Number"
+        android:inputType="phone" />
+
+    <EditText
+        android:id="@+id/editAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/info_boxes"
+        android:ems="10"
+        android:hint="Address"
+        android:inputType="textPostalAddress" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="35dp" >
+    </RelativeLayout>
 
     <Button
         android:id="@+id/btnregister"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/Register"
-        android:layout_marginLeft="30dp" />
-
-       
-   
+        android:layout_marginLeft="30dp"
+        android:background="@drawable/facebook_button"
+        android:text="@string/Register" />
 
     <TextView
         android:id="@+id/textalreadyamember"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="130dp"
         android:text="@string/alreadyamember"
+        android:padding="10dp"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-     </RelativeLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="40dp" >
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="50dp" >
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="30dp" >
+    </RelativeLayout>
 </LinearLayout>
+
 </ScrollView>

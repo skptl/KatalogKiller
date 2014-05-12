@@ -33,7 +33,7 @@ public class HomeActivity extends Activity {
 		setContentView(R.layout.home);
 		
 		user=getIntent().getParcelableExtra("USER");
-		System.out.println(user.toString());
+		//System.out.println(user.toString());
 
 		bindComponents();
 		addListeners();
