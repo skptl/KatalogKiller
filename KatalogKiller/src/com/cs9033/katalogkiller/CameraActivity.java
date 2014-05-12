@@ -4,7 +4,6 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 
 import org.apache.http.HttpEntity;
@@ -85,7 +84,6 @@ public class CameraActivity extends Activity {
 	private class UploadFile extends AsyncTask<String, Integer, Long> {
 
 		private ProgressDialog progressDialog;
-		InputStream is;
 		String result;
 		byte[] data;
 

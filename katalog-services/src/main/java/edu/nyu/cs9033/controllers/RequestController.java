@@ -34,8 +34,6 @@ public class RequestController {
 
 	private final CompanyRepository companyRepository;
 
-	private static int count = 0;
-
 	@Autowired
 	public RequestController(RequestRepository requestRepository,
 			CompanyRepository companyRepository) {
@@ -79,6 +77,37 @@ public class RequestController {
 	public String receiveRequest() {
 
 		return "test";
+	}
+	
+	@RequestMapping(value = "/add.do", method = RequestMethod.POST)
+	public @ResponseBody
+	List<String> receiveRequest(
+			@RequestParam("imageToScan") MultipartFile imageToScan) {
+		List<String> name = new ArrayList<String>();
+		try {
+			File tmpFile1 = File.createTempFile("temp", ".png");
+			System.out.println(tmpFile1.getAbsolutePath());
+			FileOutputStream output1 = new FileOutputStream(tmpFile1);
+			IOUtils.write(imageToScan.getBytes(), output1);
+
+			List<Company> list = companyRepository.findAll();
+
+			for (Company company : list) {
+				File tmpFile2 = File.createTempFile("temp", ".png");
+				System.out.println(tmpFile2.getAbsolutePath());
+				FileOutputStream output2 = new FileOutputStream(tmpFile2);
+				IOUtils.write(company.getCompanyLogo(), output2);
+				if (ImageMatcher.matchImage(tmpFile2.getAbsolutePath(),
+						tmpFile1.getAbsolutePath())) {
+					System.out.println(company.getCompanyName());
+					name.add(company.getCompanyName());
+				}
+			}
+		} catch (Exception e) {
+
+		}
+
+		return name;
 	}
 
 }
