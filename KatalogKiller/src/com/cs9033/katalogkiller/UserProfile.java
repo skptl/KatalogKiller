@@ -5,6 +5,7 @@ import com.cs9033.katalogkiller.utilities.DBHandler;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -23,7 +24,7 @@ public class UserProfile extends Activity {
 	
 	private DBHandler dbhelper; 
 	
-	private User user;
+	private User userupdate;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
@@ -35,14 +36,17 @@ public class UserProfile extends Activity {
 		usernumber=(EditText) findViewById(R.id.phonenumber);
 		useraddress=(EditText) findViewById(R.id.address);
 		update=(Button) findViewById(R.id.updateprofile);
-
-		user=getIntent().getParcelableExtra("USER");
-		username.setText(user.getUser_name());
-		useremail.setText(user.getEmail_id());
-		usernumber.setText(user.getPhone_number().toString());
-		useraddress.setText(user.getAddress());
 		
-		System.out.println(user.toString());
+		String useremailtext=getIntent().getStringExtra("EMAIL");
+		System.out.println("USernnam==="+useremailtext);
+		Cursor cur=dbhelper.userProfileInfo(useremailtext);
+		username.setText(cur.getString(1));
+		useremail.setText(cur.getString(2));
+		
+		usernumber.setText(cur.getString(4));
+		useraddress.setText(cur.getString(5));
+		
+		System.out.println(cur.toString());
 	
 	
 		update.setOnClickListener(new OnClickListener() {

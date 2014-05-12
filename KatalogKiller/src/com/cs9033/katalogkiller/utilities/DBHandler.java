@@ -225,6 +225,24 @@ public class DBHandler extends SQLiteOpenHelper {
 		
 	}
 	
+	public Cursor userProfileInfo(String username){
+		User user = new User(null, null, null, null, null, null, null);
+		SQLiteDatabase db = this.getReadableDatabase();
+		Cursor cur = db.rawQuery("select * from UserTable where USER_EMAIL=? ",new String[]{username});
+		if (cur.moveToFirst()) {
+			
+			user.setUser_name(cur.getString(1));
+			user.setEmail_id(cur.getString(2));
+			user.setAddress(cur.getString(5));
+			user.setPhone_number(cur.getString(4));
+			System.out.println(user.toString());
+
+		}
+		db.close(); 
+		return cur;
+		
+	}
+	
 	public int updateInfo(String useremail, String phone, String address){
 		SQLiteDatabase db = this.getReadableDatabase();
 		ContentValues updateuser = new ContentValues();
@@ -235,6 +253,7 @@ public class DBHandler extends SQLiteOpenHelper {
 		
 		
 	}
+	
 	
 	
 	

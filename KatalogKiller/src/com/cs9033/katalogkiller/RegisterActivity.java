@@ -61,7 +61,7 @@ public class RegisterActivity extends Activity{
 		 txtMember = (TextView)findViewById(R.id.textalreadyamember);
 		 btnRegister = (Button)findViewById(R.id.btnregister);
 		 KatalogDB = new DBHandler(this);
-		 edtAddress.setText(gpsTracker.getAddressLine(this));
+		 edtAddress.setText(gpsTracker.getAddressLine(this)+","+gpsTracker.getCountryName(this)+"-"+gpsTracker.getPostalCode(this));
 		 
 		 txtMember.setClickable(true);
 		 
