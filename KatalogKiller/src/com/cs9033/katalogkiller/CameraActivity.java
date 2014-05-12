@@ -14,6 +14,8 @@ import org.apache.http.entity.mime.HttpMultipartMode;
 import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ProgressDialog;
@@ -116,6 +118,15 @@ public class CameraActivity extends Activity {
 				post.setEntity(reqEntity);
 				HttpResponse response = client.execute(post);
 				result = getContent(response);
+				
+			//JSONObject jsonObj = new JSONObject(result);
+			 JSONArray jsonArray = new JSONArray(result);
+			 
+		for(int i=0; i <jsonArray.length(); i++)
+		{
+			System.out.println(jsonArray.get(i));
+		}
+			
 				Utilities.log(TAG, result, -1);
 
 			} catch (Exception e) {
