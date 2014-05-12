@@ -22,7 +22,7 @@ public class HomeActivity extends Activity {
 	private Button faqButton;
 	private Button leadeBoardButton;
 	private TextView txtusername;
-	private String user;
+	private User user;
 	
 	private static final int SCANNER_ACTIVITY = 1111; 
 	private static final int VIEW_ALL_REQUEST=100;
@@ -113,7 +113,8 @@ public class HomeActivity extends Activity {
         case R.id.action_profile:
             Toast.makeText(HomeActivity.this, "Profile is Selected", Toast.LENGTH_SHORT).show();
             Intent i=new Intent(HomeActivity.this,UserProfile.class);
-            i.putExtra("USER",user);
+            //System.out.println(user.toString());
+           i.putExtra("EMAIL",user.getEmail_id());
 			startActivity(i);
             return true;
   
