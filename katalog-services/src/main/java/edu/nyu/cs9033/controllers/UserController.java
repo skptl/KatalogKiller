@@ -33,17 +33,19 @@ public class UserController {
 		this.userRepository = userRepository;
 	}
 
-	@RequestMapping(value = "/test/{email}", method = RequestMethod.GET)
+	@RequestMapping(value = "/test/{email}/gen", method = RequestMethod.GET)
 	public @ResponseBody
 	String root(@PathVariable(value = "email") String email) {
+		
+		System.out.println(email);
 
-		for (int i = 0; i < 999; i++) {
+		for (int i = 0; i < 99; i++) {
 			User user = new User(email, email, i + email, email, email, i + "",
 					i * i + "");
 			User saved = userRepository.save(user);
 			System.out.println(saved.get_id());
 		}
-		return "Added 1000 fake users.";
+		return "Added 100 fake users.";
 	}
 
 	@RequestMapping(value = "/delete-all", method = RequestMethod.GET)
@@ -81,7 +83,7 @@ public class UserController {
 		return users;
 	}
 
-	@RequestMapping(value = "/authenticate/{email}/{pswd}", method = RequestMethod.GET)
+	@RequestMapping(value = "/authenticate/{email}/{pswd}")
 	public @ResponseBody
 	boolean authenticate(@PathVariable(value = "email") String email,
 			@PathVariable(value = "pswd") String pswd) {
@@ -109,6 +111,7 @@ public class UserController {
 		User existing = userRepository.findByEmail(user.getEmail());
 		if (existing != null)
 			return null;
+		user.set_id(null);
 		User saved = userRepository.save(user);
 
 		return saved;
@@ -129,6 +132,7 @@ public class UserController {
 			return null;
 
 		userRepository.delete(existing);
+		user.set_id(null);
 
 		User saved = userRepository.save(user);
 

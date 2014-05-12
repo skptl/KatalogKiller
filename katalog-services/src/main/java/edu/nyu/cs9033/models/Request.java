@@ -53,6 +53,22 @@ public class Request {
 	public byte[] getImageRequested() {
 		return imageRequested;
 	}
+
+	public void set_id(String _id) {
+		this._id = _id;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public void setImageRequested(byte[] imageRequested) {
+		this.imageRequested = imageRequested;
+	}
 	
 
 }

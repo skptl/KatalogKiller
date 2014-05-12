@@ -1,12 +1,27 @@
 package com.cs9033.katalogkiller;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.mime.HttpMultipartMode;
+import org.apache.http.entity.mime.MultipartEntityBuilder;
+import org.apache.http.entity.mime.content.FileBody;
+import org.apache.http.impl.client.DefaultHttpClient;
+
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.FrameLayout;
@@ -49,8 +64,8 @@ public class CameraActivity extends Activity {
 		@Override
 		public void onPictureTaken(byte[] data, Camera camera) {
 
-			String string = Base64.encodeToString(data, Base64.DEFAULT);
-			new UploadFile().execute(string);
+			String URL = Utilities.serverURL + "requests/add.do";
+			new UploadFile(data).execute(URL);
 		}
 	};
 
@@ -68,22 +83,44 @@ public class CameraActivity extends Activity {
 	}
 
 	private class UploadFile extends AsyncTask<String, Integer, Long> {
-		
+
 		private ProgressDialog progressDialog;
+		InputStream is;
+		String result;
+		byte[] data;
+
+		public UploadFile(byte[] data) {
+			this.data = data;
+		}
 
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			progressDialog = ProgressDialog.show(CameraActivity.this,
-					"Wait", "We are working on this...");
+			progressDialog = ProgressDialog.show(CameraActivity.this, "Wait",
+					"We are working on this...");
 		}
 
-		protected Long doInBackground(String... imageData) {
+		protected Long doInBackground(String... URL) {
 			long totalSize = 0;
 			try {
-				Thread.sleep(10000);
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
+				HttpClient client = new DefaultHttpClient();
+				HttpPost post = new HttpPost(URL[0]);
+				MultipartEntityBuilder builder = MultipartEntityBuilder
+						.create();
+				builder.setMode(HttpMultipartMode.BROWSER_COMPATIBLE);
+				File file = File.createTempFile("temp", ".png");
+				FileOutputStream fileOuputStream = new FileOutputStream(file);
+				fileOuputStream.write(data);
+				fileOuputStream.close();
+				FileBody fb = new FileBody(file);
+				builder.addPart("imageToScan", fb);
+				final HttpEntity reqEntity = builder.build();
+				post.setEntity(reqEntity);
+				HttpResponse response = client.execute(post);
+				result = getContent(response);
+				Utilities.log(TAG, result, -1);
+
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
@@ -93,6 +130,18 @@ public class CameraActivity extends Activity {
 		protected void onPostExecute(Long result) {
 			progressDialog.dismiss();
 			// TODO; make UI suggestion based on the result received.
+		}
+
+		public String getContent(HttpResponse response) throws IOException {
+			BufferedReader rd = new BufferedReader(new InputStreamReader(
+					response.getEntity().getContent()));
+			String body = "";
+			String content = "";
+
+			while ((body = rd.readLine()) != null) {
+				content += body + "\n";
+			}
+			return content.trim();
 		}
 	}
 

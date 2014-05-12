@@ -26,7 +26,10 @@ repositories {
 }
 
 dependencies {
-    compile("org.springframework.boot:spring-boot-starter-thymeleaf")
+    compile("org.springframework.boot:spring-boot-starter-thymeleaf"){
+        exclude module: "spring-boot-starter-tomcat"
+    }
+    compile("org.springframework.boot:spring-boot-starter-jetty")
     compile("org.springframework.data:spring-data-mongodb")
     compile("commons-io:commons-io:2.4")
     testCompile("junit:junit")

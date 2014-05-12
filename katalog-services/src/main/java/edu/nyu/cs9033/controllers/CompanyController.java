@@ -38,6 +38,8 @@ public class CompanyController {
 
 		Company company = new Company(companyName, companyPhone,
 				companyAddress, email, file.getBytes());
+		
+		System.out.println(email);
 
 		companyRepository.save(company);
 
