@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class UserProfile extends Activity {
 	
@@ -50,6 +51,13 @@ public class UserProfile extends Activity {
 			public void onClick(View v) {
 			int row=dbhelper.updateInfo(useremail.getText().toString(),usernumber.getText().toString(),useraddress.getText().toString());
 			System.out.println(row);	
+			if(row==1){
+			Toast.makeText(UserProfile.this,"Profile Updated",Toast.LENGTH_SHORT).show();	
+			}
+			else
+			{
+				Toast.makeText(UserProfile.this,"Something Went Wrong",Toast.LENGTH_SHORT).show();	
+			}
 			}
 		});
 

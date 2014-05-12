@@ -11,11 +11,14 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +45,7 @@ public class LoginActivity extends Activity {
 	private TextView forgetpassword;
 	private Button login;
 	private Button btnregister;
+	private CheckBox rememberme;
 	GPSTracker gpsTracker;
 	private DBHandler KatalogDB;
 
@@ -50,6 +54,7 @@ public class LoginActivity extends Activity {
 	private AsyncFacebookRunner mAsyncRunner;
 	String FILENAME = "AndroidSSO_data";
 	private SharedPreferences mPrefs;
+	private DBHandler db; 
 
 	/*
 	 * // load the library - name matches jni/Android.mk static {
@@ -62,10 +67,26 @@ public class LoginActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.loginnew);
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		db = new DBHandler(this);
+		
+		boolean remembermevalue = sharedPreferences.getBoolean("REMEMBER",false);
+		if(remembermevalue){
+			Toast.makeText(getApplicationContext(), "Redirecting...",
+					Toast.LENGTH_SHORT).show();
+			User userinfo = db.userInfo(sharedPreferences.getString("EMAIL","null"));
+			Intent homePageIntent = new Intent(this, HomeActivity.class);
+			homePageIntent.putExtra("USER", userinfo);
+			homePageIntent.putExtra(trackUsername, "Username");
+			startActivity(homePageIntent);
+			
+		}
+		
+
 
 		facebook = new Facebook(APP_ID);
 		mAsyncRunner = new AsyncFacebookRunner(facebook);
-		
+
 		gpsTracker = new GPSTracker(this);
 		KatalogDB = new DBHandler(this);
 
@@ -74,6 +95,7 @@ public class LoginActivity extends Activity {
 		forgetpassword = (TextView) findViewById(R.id.textView4);
 		btnregister = (Button) findViewById(R.id.btnregister);
 		facebooklogin = (Button) findViewById(R.id.authButton);
+		rememberme = (CheckBox) findViewById(R.id.rememberme);
 
 		forgetpassword.setClickable(true);
 
@@ -112,23 +134,35 @@ public class LoginActivity extends Activity {
 	}
 
 	public void login(View view) {
-		/*if (username.getText().toString().equals("admin")
-				&& password.getText().toString().equals("admin")) {*/
-			DBHandler db = new DBHandler(this);
-			String Password = db.getPassword(username.getText().toString());
-			if(Password.equals(password.getText().toString()))
-			{
-			
-			Toast.makeText(getApplicationContext(), "Redirecting...",
-					Toast.LENGTH_SHORT).show();
-			User userinfo=db.userInfo(username.getText().toString());
-			Intent homePageIntent = new Intent(this, HomeActivity.class);
-			homePageIntent.putExtra("USER",userinfo);
-			homePageIntent.putExtra(trackUsername, "Username");
-			startActivity(homePageIntent);
+		/*
+		 * if (username.getText().toString().equals("admin") &&
+		 * password.getText().toString().equals("admin")) {
+		 */
+		DBHandler db = new DBHandler(this);
+		String Password = db.getPassword(username.getText().toString());
+		if (Password.equals(password.getText().toString())) {
+			if (rememberme.isChecked()) {
+				SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+
+				Editor editor = sharedPreferences.edit();
+
+				editor.putBoolean("REMEMBER",true);
+				editor.putString("EMAIL",username.getText().toString());
+				editor.putString("PASSWORD",password.getText().toString());
+				editor.commit();
+
 			}
 
-		//}
+			Toast.makeText(getApplicationContext(), "Redirecting...",
+					Toast.LENGTH_SHORT).show();
+			User userinfo = db.userInfo(username.getText().toString());
+			Intent homePageIntent = new Intent(this, HomeActivity.class);
+			homePageIntent.putExtra("USER", userinfo);
+			homePageIntent.putExtra(trackUsername, "Username");
+			startActivity(homePageIntent);
+		}
+
+		// }
 		else {
 			Toast.makeText(getApplicationContext(), "Wrong Credentials",
 					Toast.LENGTH_SHORT).show();
@@ -202,7 +236,7 @@ public class LoginActivity extends Activity {
 	@SuppressWarnings("deprecation")
 	public void getProfileInformation() {
 		// check if GPS enabled
-	    
+
 		mAsyncRunner.request("me", new RequestListener() {
 			@Override
 			public void onComplete(String response, Object state) {
@@ -217,16 +251,17 @@ public class LoginActivity extends Activity {
 					final String email = profile.getString("email");
 					user.setEmail_id(profile.getString("email"));
 					user.setPassword("");
-					user.setAddress(gpsTracker.getAddressLine(LoginActivity.this));
+					user.setAddress(gpsTracker
+							.getAddressLine(LoginActivity.this));
 					user.setPhone_number("");
 					user.setUser_name(profile.getString("name"));
 					System.out.println(user.toString());
-					long id =  KatalogDB.addUser(user);
+					long id = KatalogDB.addUser(user);
 					runOnUiThread(new Runnable() {
 
 						@Override
 						public void run() {
-							
+
 							Toast.makeText(
 									getApplicationContext(),
 									"Name: " + firstname + "   " + lastname
@@ -256,6 +291,5 @@ public class LoginActivity extends Activity {
 			}
 		});
 	}
-
 
 }
