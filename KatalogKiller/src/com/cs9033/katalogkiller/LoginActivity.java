@@ -33,6 +33,7 @@ import android.widget.Toast;
 import com.cs9033.katalogkiller.models.User;
 import com.cs9033.katalogkiller.utilities.DBHandler;
 import com.cs9033.katalogkiller.utilities.GPSTracker;
+import com.cs9033.katalogkiller.utilities.Utilities;
 import com.facebook.android.AsyncFacebookRunner;
 import com.facebook.android.AsyncFacebookRunner.RequestListener;
 import com.facebook.android.DialogError;
@@ -103,6 +104,14 @@ public class LoginActivity extends Activity {
 		btnregister = (Button) findViewById(R.id.btnregister);
 		facebooklogin = (Button) findViewById(R.id.authButton);
 		rememberme = (CheckBox) findViewById(R.id.rememberme);
+		login= (Button)findViewById(R.id.btnlogin);
+		
+		login.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				login(v);
+
+			}
+		});
 
 		forgetpassword.setClickable(true);
 
@@ -151,7 +160,7 @@ public class LoginActivity extends Activity {
 		String Username = username.getText().toString();
 		
 		new HttpAsyncTask()
-		.execute("http://192.168.1.8:8080/users/authenticate/"+ Username+ "/" +Password);
+		.execute(Utilities.serverURL +"users/authenticate/"+ Username+ "/" +Password);
 		
 		
 		//DBHandler db = new DBHandler(this);
@@ -189,10 +198,9 @@ public class LoginActivity extends Activity {
 
 				Toast.makeText(getApplicationContext(), "Redirecting...",
 						Toast.LENGTH_SHORT).show();
-				User userinfo = db.userInfo(username.getText().toString());
+				String userinfo = username.getText().toString();
 				Intent homePageIntent = new Intent(LoginActivity.this, HomeActivity.class);
 				homePageIntent.putExtra("USER", userinfo);
-				homePageIntent.putExtra(trackUsername, "Username");
 				startActivity(homePageIntent);
 			}
 

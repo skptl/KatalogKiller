@@ -77,6 +77,8 @@ public class HomeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				Intent Viewallrequest = new Intent(HomeActivity.this, FAQActivity.class);
+	      	    startActivityForResult(Viewallrequest, VIEW_ALL_REQUEST);
 
 			}
 		});
@@ -112,7 +114,7 @@ public class HomeActivity extends Activity {
             Toast.makeText(HomeActivity.this, "Profile is Selected", Toast.LENGTH_SHORT).show();
             Intent i=new Intent(HomeActivity.this,UserProfile.class);
             //System.out.println(user.toString());
-            i.putExtra("EMAIL",user.getEmail_id());
+           i.putExtra("EMAIL",user.getEmail_id());
 			startActivity(i);
             return true;
   
