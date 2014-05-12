@@ -22,7 +22,7 @@ public class HomeActivity extends Activity {
 	private Button faqButton;
 	private Button leadeBoardButton;
 	private TextView txtusername;
-	private User user;
+	private String user;
 	
 	private static final int SCANNER_ACTIVITY = 1111; 
 	private static final int VIEW_ALL_REQUEST=100;
@@ -77,6 +77,8 @@ public class HomeActivity extends Activity {
 			@Override
 			public void onClick(View v) {
 				// TODO Auto-generated method stub
+				Intent Viewallrequest = new Intent(HomeActivity.this, FAQActivity.class);
+	      	    startActivityForResult(Viewallrequest, VIEW_ALL_REQUEST);
 
 			}
 		});
