@@ -1,21 +1,31 @@
 package com.cs9033.katalogkiller;
 
+import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.MalformedURLException;
 
-import org.json.JSONArray;
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.Editor;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.util.Log;
-import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +52,7 @@ public class LoginActivity extends Activity {
 	private TextView forgetpassword;
 	private Button login;
 	private Button btnregister;
+	private CheckBox rememberme;
 	GPSTracker gpsTracker;
 	private DBHandler KatalogDB;
 
@@ -50,6 +61,7 @@ public class LoginActivity extends Activity {
 	private AsyncFacebookRunner mAsyncRunner;
 	String FILENAME = "AndroidSSO_data";
 	private SharedPreferences mPrefs;
+	private DBHandler db; 
 
 	/*
 	 * // load the library - name matches jni/Android.mk static {
@@ -62,10 +74,26 @@ public class LoginActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.loginnew);
+		SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+		db = new DBHandler(this);
+		
+		boolean remembermevalue = sharedPreferences.getBoolean("REMEMBER",false);
+		if(remembermevalue){
+			Toast.makeText(getApplicationContext(), "Redirecting...",
+					Toast.LENGTH_SHORT).show();
+			User userinfo = db.userInfo(sharedPreferences.getString("EMAIL","null"));
+			Intent homePageIntent = new Intent(this, HomeActivity.class);
+			homePageIntent.putExtra("USER", userinfo);
+			homePageIntent.putExtra(trackUsername, "Username");
+			startActivity(homePageIntent);
+			
+		}
+		
+
 
 		facebook = new Facebook(APP_ID);
 		mAsyncRunner = new AsyncFacebookRunner(facebook);
-		
+
 		gpsTracker = new GPSTracker(this);
 		KatalogDB = new DBHandler(this);
 
@@ -74,6 +102,7 @@ public class LoginActivity extends Activity {
 		forgetpassword = (TextView) findViewById(R.id.textView4);
 		btnregister = (Button) findViewById(R.id.btnregister);
 		facebooklogin = (Button) findViewById(R.id.authButton);
+		rememberme = (CheckBox) findViewById(R.id.rememberme);
 
 		forgetpassword.setClickable(true);
 
@@ -112,28 +141,120 @@ public class LoginActivity extends Activity {
 	}
 
 	public void login(View view) {
-		/*if (username.getText().toString().equals("admin")
-				&& password.getText().toString().equals("admin")) {*/
-			DBHandler db = new DBHandler(this);
-			String Password = db.getPassword(username.getText().toString());
-			if(Password.equals(password.getText().toString()))
-			{
+		/*
+		 * if (username.getText().toString().equals("admin") &&
+		 * password.getText().toString().equals("admin")) {
+		 */
+		
+		
+		String Password = password.getText().toString();
+		String Username = username.getText().toString();
+		
+		new HttpAsyncTask()
+		.execute("http://192.168.1.8:8080/users/authenticate/"+ Username+ "/" +Password);
+		
+		
+		//DBHandler db = new DBHandler(this);
+		//String Password = db.getPassword(username.getText().toString());
+	
+	}
+	
+	
+	
+	
+	
+	private class HttpAsyncTask extends AsyncTask<String, Void, String> {
+		@Override
+		protected String doInBackground(String... urls) {
+			return POST(urls[0]);
+		}
+
+		// onPostExecute displays the results of the AsyncTask.
+		@Override
+		protected void onPostExecute(String result) {
 			
-			Toast.makeText(getApplicationContext(), "Redirecting...",
-					Toast.LENGTH_SHORT).show();
-			User userinfo=db.userInfo(username.getText().toString());
-			Intent homePageIntent = new Intent(this, HomeActivity.class);
-			homePageIntent.putExtra("USER",userinfo);
-			homePageIntent.putExtra(trackUsername, "Username");
-			startActivity(homePageIntent);
+			
+			if (result.equals("true")) {
+				if (rememberme.isChecked()) {
+					SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
+
+					Editor editor = sharedPreferences.edit();
+
+					editor.putBoolean("REMEMBER",true);
+					editor.putString("EMAIL",username.getText().toString());
+					editor.putString("PASSWORD",password.getText().toString());
+					editor.commit();
+
+				}
+
+				Toast.makeText(getApplicationContext(), "Redirecting...",
+						Toast.LENGTH_SHORT).show();
+				User userinfo = db.userInfo(username.getText().toString());
+				Intent homePageIntent = new Intent(LoginActivity.this, HomeActivity.class);
+				homePageIntent.putExtra("USER", userinfo);
+				homePageIntent.putExtra(trackUsername, "Username");
+				startActivity(homePageIntent);
 			}
 
-		//}
-		else {
-			Toast.makeText(getApplicationContext(), "Wrong Credentials",
-					Toast.LENGTH_SHORT).show();
+			// }
+			else {
+				Toast.makeText(getApplicationContext(), "Wrong Credentials",
+						Toast.LENGTH_SHORT).show();
+			}
 		}
 	}
+	
+	
+	
+	public String POST(String url) {
+		InputStream inputStream = null;
+		String result = "";
+		try {
+
+			HttpClient httpclient = new DefaultHttpClient();
+			HttpPost httpPost = new HttpPost(url);
+			String json = "";
+			long unixTime = System.currentTimeMillis() / 1000L;
+			
+			StringEntity se = new StringEntity(json);
+			httpPost.setEntity(se);
+			httpPost.setHeader("Accept", "application/json");
+			httpPost.setHeader("Content-type", "application/json");
+			HttpResponse httpResponse = httpclient.execute(httpPost);
+			inputStream = httpResponse.getEntity().getContent();
+			if (inputStream != null) {
+				result = convertInputStreamToString(inputStream);
+				
+				
+			} else
+				result = "Did not work!";
+
+		} catch (Exception e) {
+			Log.d("InputStream", e.getLocalizedMessage());
+		}
+         
+		return result;
+		
+	}
+	
+	
+	private static String convertInputStreamToString(InputStream inputStream)
+			throws IOException {
+		BufferedReader bufferedReader = new BufferedReader(
+				new InputStreamReader(inputStream));
+		String line = "";
+		String result = "";
+		while ((line = bufferedReader.readLine()) != null) {
+			result += line;
+		}
+	
+		
+		inputStream.close();
+		return result;
+
+	}
+	
+	
 
 	@SuppressWarnings("deprecation")
 	public void fbLogin() {
@@ -202,7 +323,7 @@ public class LoginActivity extends Activity {
 	@SuppressWarnings("deprecation")
 	public void getProfileInformation() {
 		// check if GPS enabled
-	    
+
 		mAsyncRunner.request("me", new RequestListener() {
 			@Override
 			public void onComplete(String response, Object state) {
@@ -217,16 +338,17 @@ public class LoginActivity extends Activity {
 					final String email = profile.getString("email");
 					user.setEmail_id(profile.getString("email"));
 					user.setPassword("");
-					user.setAddress(gpsTracker.getAddressLine(LoginActivity.this));
+					user.setAddress(gpsTracker
+							.getAddressLine(LoginActivity.this));
 					user.setPhone_number("");
 					user.setUser_name(profile.getString("name"));
 					System.out.println(user.toString());
-					long id =  KatalogDB.addUser(user);
+					long id = KatalogDB.addUser(user);
 					runOnUiThread(new Runnable() {
 
 						@Override
 						public void run() {
-							
+
 							Toast.makeText(
 									getApplicationContext(),
 									"Name: " + firstname + "   " + lastname
@@ -256,6 +378,5 @@ public class LoginActivity extends Activity {
 			}
 		});
 	}
-
 
 }
