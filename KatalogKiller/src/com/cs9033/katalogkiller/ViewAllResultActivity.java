@@ -30,6 +30,7 @@ import com.cs9033.katalogkiller.utilities.DBHandler;
 import com.cs9033.katalogkiller.utilities.Utilities;
 
 public class ViewAllResultActivity extends Activity{
+	
 	 private ListView listViewMembers;
 
  	private ArrayList<String> arraylistsubscription;
