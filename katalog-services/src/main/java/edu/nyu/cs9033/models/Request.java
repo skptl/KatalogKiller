@@ -1,7 +1,6 @@
 package edu.nyu.cs9033.models;
 
 import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -12,26 +11,29 @@ import org.springframework.data.mongodb.core.mapping.Field;
 
 @Document(collection = "requests")
 public class Request {
-	
+
 	@Id
 	private String _id;
 
 	@Field("status")
 	private boolean status;
 
-	@Indexed(unique = true)
 	@Field("email")
 	private String email;
 
+	@Field("companyName")
+	private String companyName;
+
 	@Field("imageRequested")
 	private byte[] imageRequested;
-	
-	public Request(boolean status, String email,
-			byte[] imageRequested) {
+
+
+
+	public Request(boolean status, String email, String companyName) {
 		super();
 		this.status = status;
 		this.email = email;
-		this.imageRequested = imageRequested;
+		this.companyName = companyName;
 	}
 
 	public Request() {
@@ -69,6 +71,13 @@ public class Request {
 	public void setImageRequested(byte[] imageRequested) {
 		this.imageRequested = imageRequested;
 	}
-	
+
+	public String getCompanyName() {
+		return companyName;
+	}
+
+	public void setCompanyName(String companyName) {
+		this.companyName = companyName;
+	}
 
 }

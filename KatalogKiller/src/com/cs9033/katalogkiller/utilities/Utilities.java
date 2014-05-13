@@ -19,7 +19,8 @@ public class Utilities {
 
 	public static boolean debug = true;
 
-	public static String serverURL = "http://192.168.1.155:8080/";
+	public static String serverURL = "http://172.20.10.2:8080/";
+	public static String userName = "";
 
 	private static final int NTHREDS = 5;
 

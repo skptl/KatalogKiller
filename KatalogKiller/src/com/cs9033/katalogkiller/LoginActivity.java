@@ -159,7 +159,7 @@ public class LoginActivity extends Activity {
 		String Password = password.getText().toString();
 		String Username = username.getText().toString();
 		
-		new HttpAsyncTask()
+		new HttpAsyncTask(Username)
 		.execute(Utilities.serverURL +"users/authenticate/"+ Username+ "/" +Password);
 		
 		
@@ -173,6 +173,13 @@ public class LoginActivity extends Activity {
 	
 	
 	private class HttpAsyncTask extends AsyncTask<String, Void, String> {
+		
+		String Username;
+		
+		public HttpAsyncTask(String username) {
+			this.Username = username;
+		}
+
 		@Override
 		protected String doInBackground(String... urls) {
 			return POST(urls[0]);
@@ -184,6 +191,7 @@ public class LoginActivity extends Activity {
 			
 			
 			if (result.equals("true")) {
+				Utilities.userName = Username;
 				if (rememberme.isChecked()) {
 					SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(LoginActivity.this);
 
@@ -195,9 +203,6 @@ public class LoginActivity extends Activity {
 					editor.commit();
 
 				}
-
-				Toast.makeText(getApplicationContext(), "Redirecting...",
-						Toast.LENGTH_SHORT).show();
 				String userinfo = username.getText().toString();
 				Intent homePageIntent = new Intent(LoginActivity.this, HomeActivity.class);
 				homePageIntent.putExtra("USER", userinfo);
@@ -352,7 +357,7 @@ public class LoginActivity extends Activity {
 					user.setUser_name(profile.getString("name"));
 					System.out.println(user.toString());
 					long id = KatalogDB.addUser(user);
-					runOnUiThread(new Runnable() {
+/*					runOnUiThread(new Runnable() {
 
 						@Override
 						public void run() {
@@ -364,7 +369,7 @@ public class LoginActivity extends Activity {
 									Toast.LENGTH_LONG).show();
 						}
 
-					});
+					});*/
 
 				} catch (JSONException e) {
 					e.printStackTrace();

@@ -15,17 +15,24 @@ import org.apache.http.entity.mime.MultipartEntityBuilder;
 import org.apache.http.entity.mime.content.FileBody;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
 import android.hardware.Camera;
 import android.hardware.Camera.PictureCallback;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ListView;
 
 import com.cs9033.katalogkiller.utilities.Utilities;
 
@@ -36,6 +43,7 @@ public class CameraActivity extends Activity {
 	private Camera mCamera;
 	private CameraSurfaceView mPreview;
 	private Button captureButton;
+	private Activity context = this;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -83,7 +91,7 @@ public class CameraActivity extends Activity {
 		}
 	}
 
-	private class UploadFile extends AsyncTask<String, Integer, Long> {
+	private class UploadFile extends AsyncTask<String, Integer, String> {
 
 		private ProgressDialog progressDialog;
 		String result;
@@ -96,12 +104,11 @@ public class CameraActivity extends Activity {
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			progressDialog = ProgressDialog.show(CameraActivity.this, "Wait",
+			progressDialog = ProgressDialog.show(context, "Wait",
 					"We are working on this...");
 		}
 
-		protected Long doInBackground(String... URL) {
-			long totalSize = 0;
+		protected String doInBackground(String... URL) {
 			try {
 				HttpClient client = new DefaultHttpClient();
 				HttpPost post = new HttpPost(URL[0]);
@@ -118,26 +125,64 @@ public class CameraActivity extends Activity {
 				post.setEntity(reqEntity);
 				HttpResponse response = client.execute(post);
 				result = getContent(response);
-				
-			//JSONObject jsonObj = new JSONObject(result);
-			 JSONArray jsonArray = new JSONArray(result);
-			 
-		for(int i=0; i <jsonArray.length(); i++)
-		{
-			System.out.println(jsonArray.get(i));
-		}
-			
+
 				Utilities.log(TAG, result, -1);
 
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
 
-			return totalSize;
+			return result;
 		}
 
-		protected void onPostExecute(Long result) {
+		protected void onPostExecute(String result) {
 			progressDialog.dismiss();
+			try {
+				JSONArray jsonArray = new JSONArray(result);
+				String[] values = new String[jsonArray.length() + 1];
+				for (int i = 0; i < jsonArray.length(); i++) {
+					values[i] = jsonArray.get(i).toString();
+				}
+				values[values.length - 1] = "Enter manually";
+				Dialog dlg = new Dialog(context);
+				dlg.setTitle("Scanned companies");
+				LayoutInflater li = (LayoutInflater) context
+						.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+				View v = li.inflate(R.layout.scanresult, null, false);
+				ListView lv = (ListView) v.findViewById(R.id.listViewFinal);
+				ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+						context, android.R.layout.simple_list_item_1, values);
+				lv.setAdapter(adapter);
+				lv.setOnItemClickListener(new OnItemClickListener() {
+					@Override
+					public void onItemClick(AdapterView<?> parent, View view,
+							int position, long id) {
+
+						String string = (String) parent
+								.getItemAtPosition(position);
+						
+						if(!string.equalsIgnoreCase("Enter manually"))
+						{
+							String URL = Utilities.serverURL + "requests/add/"+Utilities.userName+"/"+string;
+							new SendRequest().execute(URL);
+						}
+						else if(string.equalsIgnoreCase("Enter manually"))
+						{
+							Intent intent = new Intent(context, ManualEntry.class);
+							context.startActivity(intent);
+							context.finish();
+							
+						}
+
+
+					}
+				});
+				dlg.setContentView(v);
+				dlg.show();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
 			// TODO; make UI suggestion based on the result received.
 		}
 
@@ -152,6 +197,52 @@ public class CameraActivity extends Activity {
 			}
 			return content.trim();
 		}
+	}
+
+	private class SendRequest extends AsyncTask<String, Integer, String> {
+
+		private ProgressDialog progressDialog;
+		String result;
+
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			progressDialog = ProgressDialog.show(context, "Wait",
+					"Your request is being sent.\nCheck your email.");
+		}
+
+		protected String doInBackground(String... URL) {
+			try {
+				HttpClient client = new DefaultHttpClient();
+				HttpPost post = new HttpPost(URL[0]);
+				HttpResponse response = client.execute(post);
+				result = getContent(response);
+				Utilities.log(TAG, result, -1);
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+
+			return result;
+		}
+
+		protected void onPostExecute(String result) {
+			progressDialog.dismiss();
+			context.finish();
+		}
+
+		public String getContent(HttpResponse response) throws IOException {
+			BufferedReader rd = new BufferedReader(new InputStreamReader(
+					response.getEntity().getContent()));
+			String body = "";
+			String content = "";
+
+			while ((body = rd.readLine()) != null) {
+				content += body + "\n";
+			}
+			return content.trim();
+		}
+
 	}
 
 }

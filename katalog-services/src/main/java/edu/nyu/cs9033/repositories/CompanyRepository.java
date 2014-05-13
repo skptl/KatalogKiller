@@ -12,5 +12,7 @@ import edu.nyu.cs9033.models.Company;
 public interface CompanyRepository extends MongoRepository<Company, String> {
 
 	public Company findByEmail(String email);
+	
+	public Company findByCompanyName(String name);
 
 }

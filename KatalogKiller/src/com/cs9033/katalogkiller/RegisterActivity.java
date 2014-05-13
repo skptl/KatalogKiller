@@ -10,7 +10,6 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
-import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
@@ -186,9 +185,7 @@ public class RegisterActivity extends Activity{
 		// onPostExecute displays the results of the AsyncTask.
 		@Override
 		protected void onPostExecute(String result) {
-			Toast.makeText(getBaseContext(),
-					"CREATE_TRIP executed sucessfully!", Toast.LENGTH_SHORT)
-					.show();
+
 		}
 	}
 	

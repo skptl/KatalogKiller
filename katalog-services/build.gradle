@@ -32,6 +32,8 @@ dependencies {
     compile("org.springframework.boot:spring-boot-starter-jetty")
     compile("org.springframework.data:spring-data-mongodb")
     compile("commons-io:commons-io:2.4")
+    compile("javax.mail:mail:1.4")
+    runtime files('/Users/CoRrUpT/Desktop/OpenCV/opencv/build/bin/opencv-248.jar')
     testCompile("junit:junit")
 }
 

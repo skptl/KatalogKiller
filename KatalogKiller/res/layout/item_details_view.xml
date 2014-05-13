@@ -26,8 +26,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
-            android:textColor="#FFFF00"
-            android:textSize="14sp"
             android:textStyle="bold"
             android:layout_marginLeft="20dp" />
           </LinearLayout>
@@ -40,8 +38,6 @@
             android:id="@+id/status"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp"
-            android:textStyle="bold" 
             android:layout_marginLeft="160dp"
             />
   </LinearLayout>
