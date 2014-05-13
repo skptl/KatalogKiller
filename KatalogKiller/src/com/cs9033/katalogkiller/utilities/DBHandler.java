@@ -1,6 +1,18 @@
 package com.cs9033.katalogkiller.utilities;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+
+import org.apache.http.HttpResponse;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -8,6 +20,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteDatabase.CursorFactory;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.os.AsyncTask;
 import android.util.Log;
 
 import com.cs9033.katalogkiller.models.Subscription;
@@ -45,6 +58,8 @@ public class DBHandler extends SQLiteOpenHelper {
     private static final String SUBSCRIPTION_ID = "subscription_id";
     private static final String SUBSCRIPTION_STATUS = "subscription_status";
     private static final String SUBSCRIPTION_NAME = "subscription_name";
+    
+    
     
     
     
@@ -156,17 +171,10 @@ public class DBHandler extends SQLiteOpenHelper {
 	public ArrayList<Subscription> getAllSubscriptionUser() {
 		ArrayList<Subscription> subcription = new ArrayList<Subscription>();
 		
-/*String selectQuery = "SELECT  * FROM " + TABLE_USER_SUBSCRIBE;
-	    
-	    SQLiteDatabase db = this.getReadableDatabase();
-	    
-	    Cursor cursor = db.rawQuery(selectQuery, null);
-	    
-		for (cursor.moveToFirst(); !cursor.isAfterLast(); cursor.moveToNext()) {
-			Subscription subs = new Subscription(cursor.getString(0), 
-					cursor.getString(1), cursor.getString(2));
-			subcription.add(subs);
-		}*/
+
+
+		
+		
 		Subscription sub1= new Subscription("0","HCL Tech","True");
 		Subscription sub2= new Subscription("1","IBM","True");
 		Subscription sub3= new Subscription("2","MICROSOFT","True");
@@ -193,7 +201,7 @@ public class DBHandler extends SQLiteOpenHelper {
 		return subcription;
 	}
 	
-	
+		
 //	Get Password
 	
 	public String getPassword(String username ) {

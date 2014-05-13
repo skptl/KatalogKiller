@@ -159,11 +159,11 @@ public class ViewAllResultActivity extends Activity {
 			
 
 			}
-			Subscription sub2= new Subscription("0","Samsung","False");
-			Subscription sub3= new Subscription("1","Apple","False");
-			Subscription sub4= new Subscription("2","Yahoo","False");
-			Subscription sub5= new Subscription("3","Bloomberg","False");
-			Subscription sub6= new Subscription("4","Quora","False");
+			Subscription sub2= new Subscription("0","Samsung","True");
+			Subscription sub3= new Subscription("1","Apple","True");
+			Subscription sub4= new Subscription("2","Yahoo","True");
+			Subscription sub5= new Subscription("3","Bloomberg","True");
+			Subscription sub6= new Subscription("4","Quora","True");
 			arraylistsubscriptionRaw.add(sub2);
 			arraylistsubscriptionRaw.add(sub3);
 			arraylistsubscriptionRaw.add(sub4);
